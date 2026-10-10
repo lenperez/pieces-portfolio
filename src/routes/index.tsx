@@ -15,8 +15,8 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const imgs = import.meta.glob("@/assets/work/*.jpg", { eager: true, import: "default" }) as Record<string, string>;
-const img = (n: string) => Object.entries(imgs).find(([k]) => k.endsWith(`/${n}.jpg`))![1];
+const imgs = import.meta.glob("@/assets/work/*.png", { eager: true, import: "default" }) as Record<string, string>;
+const img = (n: string) => Object.entries(imgs).find(([k]) => k.endsWith(`/${n}.png`))![1];
 
 type Step = { kind: string; title: string; text: string; image: string };
 type Project = { id: string; name: string; client: string; steps: Step[] };
