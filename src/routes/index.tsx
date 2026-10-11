@@ -104,7 +104,7 @@ function Index() {
             <div className="mt-16 space-y-20 md:space-y-28">
               {p.steps.map((s, i) => (
                 <article key={s.title} className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
-                  <div className={`md:col-span-7 ${i % 2 ? "md:order-2" : ""}`}>
+                  <div className={`md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
                     <button
                       type="button"
                       onClick={() => setZoom(s)}
@@ -119,7 +119,7 @@ function Index() {
                       </span>
                     </button>
                   </div>
-                  <div className="border-t border-border pt-5 md:col-span-5">
+                  <div className="border-t border-border pt-5 md:col-span-8">
                     <div className="label">{String(i + 1).padStart(2, "0")} · {s.kind}</div>
                     <h3 className="mt-2 font-display text-2xl font-light tracking-tight md:text-3xl">{s.title}</h3>
                     <p className="mt-4 leading-relaxed text-muted-foreground">{s.text}</p>
