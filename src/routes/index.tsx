@@ -97,9 +97,9 @@ function Index() {
       {projects.map((p, idx) => (
         <section key={p.id} id={p.id} className="scroll-mt-16 border-t border-border py-24">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <h2 className="section-tag">{p.name}</h2>
-              <span className="label">0{idx + 1} — {p.client}</span>
+            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 bg-primary px-5 py-3 text-primary-foreground">
+              <h2 className="font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
+              <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">0{idx + 1} — {p.client}</span>
             </div>
             <div className="mt-16 space-y-20 md:space-y-28">
               {p.steps.map((s, i) => (
