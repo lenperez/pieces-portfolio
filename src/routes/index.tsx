@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Maximize2, X } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -103,14 +104,21 @@ function Index() {
             <div className="mt-16 space-y-20 md:space-y-28">
               {p.steps.map((s, i) => (
                 <article key={s.title} className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
-                  <button
-                    type="button"
-                    onClick={() => setZoom(s)}
-                    className={`group md:col-span-7 ${i % 2 ? "md:order-2" : ""}`}
-                    aria-label={`Enlarge ${s.title}`}
-                  >
-                    <img src={s.image} alt={`${p.name} — ${s.title}`} loading="lazy" className="mx-auto max-h-[34rem] w-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]" />
-                  </button>
+                  <div className={`md:col-span-7 ${i % 2 ? "md:order-2" : ""}`}>
+                    <button
+                      type="button"
+                      onClick={() => setZoom(s)}
+                      className="group relative mx-auto block w-fit cursor-zoom-in"
+                      aria-label={`Enlarge ${s.title}`}
+                    >
+                      <img src={s.image} alt={`${p.name} — ${s.title}`} loading="lazy" className="max-h-[34rem] w-auto object-contain" />
+                      <span className="absolute inset-0 flex items-center justify-center bg-primary/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                        <span className="flex items-center gap-2 border border-primary-foreground px-4 py-2 text-xs font-semibold uppercase tracking-widest text-primary-foreground">
+                          <Maximize2 className="h-4 w-4" /> Enlarge
+                        </span>
+                      </span>
+                    </button>
+                  </div>
                   <div className="border-t border-border pt-5 md:col-span-5">
                     <div className="label">{String(i + 1).padStart(2, "0")} · {s.kind}</div>
                     <h3 className="mt-2 font-display text-2xl font-light tracking-tight md:text-3xl">{s.title}</h3>
@@ -146,7 +154,15 @@ function Index() {
           onClick={() => setZoom(null)}
           className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-foreground/80 p-4 backdrop-blur-sm"
         >
-          <img src={zoom.image} alt={zoom.title} className="max-h-full max-w-full bg-card object-contain" />
+          <button
+            type="button"
+            onClick={() => setZoom(null)}
+            aria-label="Close"
+            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center bg-background text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <img src={zoom.image} alt={zoom.title} onClick={(e) => e.stopPropagation()} className="max-h-full max-w-full cursor-default object-contain" />
         </div>
       )}
     </div>
