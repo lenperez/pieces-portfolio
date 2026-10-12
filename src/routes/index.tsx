@@ -143,7 +143,7 @@ function Index() {
                       </span>
                     </button>
                   </div>
-                  <div className="border-t border-border pt-5 md:col-span-8">
+                  <div className="order-first border-t border-border pt-5 md:order-none md:col-span-8">
                     <div className="label">{String(i + 1).padStart(2, "0")} · {s.kind}</div>
                     <h3 className="mt-2 font-display text-2xl font-light tracking-tight md:text-3xl">{s.title}</h3>
                     <p className="mt-4 leading-relaxed text-muted-foreground">{s.text}</p>
