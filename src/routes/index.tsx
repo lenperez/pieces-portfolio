@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Maximize2, Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -83,7 +84,7 @@ function Index() {
     <div className="min-h-screen bg-background text-foreground font-sans">
       <header className={`sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" className="font-display text-lg font-light tracking-tight">PIECES</a>
+          <a href="#top" aria-label="Back to top" className="shrink-0"><img src={logo} alt="Len Perez logo" className="h-9 w-auto" /></a>
           <div className="hidden gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
             {projects.map((p) => (
               <a key={p.id} href={`#${p.id}`} className="transition-colors hover:text-primary">{p.name}</a>
