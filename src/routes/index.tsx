@@ -70,18 +70,39 @@ const projects: Project[] = [
 
 function Index() {
   const [zoom, setZoom] = useState<Step | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [menu, setMenu] = useState(false);
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 4);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  const links = [...projects.map((p) => ({ href: `#${p.id}`, label: p.name })), { href: "#contact", label: "Contact" }];
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
-      <header className="sticky top-0 z-20 border-t-4 border-primary bg-background/90 backdrop-blur">
+      <header className={`sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <a href="#top" className="font-display text-lg font-light tracking-tight">PIECES</a>
-          <div className="flex gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          <div className="hidden gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
             {projects.map((p) => (
-              <a key={p.id} href={`#${p.id}`} className="hidden transition-colors hover:text-primary sm:inline">{p.name}</a>
+              <a key={p.id} href={`#${p.id}`} className="transition-colors hover:text-primary">{p.name}</a>
             ))}
             <a href="#contact" className="text-primary">Contact</a>
           </div>
+          <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 p-2 text-primary sm:hidden">
+            {menu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </nav>
+        {menu && (
+          <div className="border-t border-border bg-background shadow-lg sm:hidden">
+            {links.map((l) => (
+              <a key={l.href} href={l.href} onClick={() => setMenu(false)} className="block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground hover:bg-primary hover:text-primary-foreground">
+                {l.label}
+              </a>
+            ))}
+          </div>
+        )}
       </header>
 
       <section id="top" className="mx-auto flex min-h-[80vh] max-w-6xl flex-col justify-end px-6 pb-20">
@@ -95,13 +116,15 @@ function Index() {
       </section>
 
       {projects.map((p, idx) => (
-        <section key={p.id} id={p.id} className="scroll-mt-16 border-t border-border py-24">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 bg-primary px-5 py-3 text-primary-foreground">
+        <section key={p.id} id={p.id} className="scroll-mt-16 pb-12">
+          <div className="bg-primary text-primary-foreground">
+            <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-3">
               <h2 className="font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
               <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">0{idx + 1} — {p.client}</span>
             </div>
-            <div className="mt-16 space-y-20 md:space-y-28">
+          </div>
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="mt-8 space-y-10 md:space-y-14">
               {p.steps.map((s, i) => (
                 <article key={s.title} className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
                   <div className={`md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
