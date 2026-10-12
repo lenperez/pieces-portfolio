@@ -106,7 +106,7 @@ function Index() {
         )}
       </header>
 
-      <section id="top" className="mx-auto flex min-h-[80vh] max-w-6xl flex-col justify-end px-6 pb-20">
+      <section id="top" className="mx-auto flex min-h-[calc(100svh-4.75rem)] max-w-6xl flex-col justify-end px-6 pb-20">
         <h1 className="font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] md:text-[14rem]">PIECES</h1>
         <p className="mt-6 text-xs uppercase tracking-[0.3em] text-muted-foreground">
           A collection of work from <span className="font-bold text-primary">Len Perez</span>
