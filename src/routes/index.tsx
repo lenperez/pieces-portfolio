@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Maximize2, X } from "lucide-react";
+import { Maximize2, Menu, X } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
