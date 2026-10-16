@@ -104,6 +104,7 @@ function Index() {
         </nav>
         {menu && (
           <div className="border-t border-border bg-background shadow-lg sm:hidden">
+            <div className="border-b border-border px-6 pb-2 pt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">UX Samples</div>
             {links.map((l) => (
               <a key={l.href} href={l.href} onClick={() => setMenu(false)} className="block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground hover:bg-primary hover:text-primary-foreground">
                 {l.label}
