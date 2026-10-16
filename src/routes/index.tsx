@@ -69,6 +69,54 @@ const projects: Project[] = [
   },
 ];
 
+const uiProjects: Project[] = [
+  {
+    id: "ui-purchasing",
+    name: "Purchasing Platform",
+    client: "Complete site redesign",
+    steps: [
+      { kind: "Synopsis", title: "Complete Site Redesign", image: img("ui-pp-synopsis"), text: "Completely redesigned an eCommerce site into a mobile-friendly, responsive & adaptive experience that allowed for quick scanning of relevant information." },
+      { kind: "Design", title: "Paint Selection Tool", image: img("ui-pp-paint"), text: "Designed a more intuitive interface for their Paint Selection overlay that was more interactive, and allowed a user in real-time to see what colors matched and complemented each other." },
+    ],
+  },
+  {
+    id: "ui-press-ganey",
+    name: "Press Ganey",
+    client: "Dashboard & community suite",
+    steps: [
+      { kind: "Synopsis", title: "Second-gen suite", image: img("ui-pg-synopsis"), text: "Press Ganey needed a Style Guide and Specification Document created for their second-generation user dashboard and medical community web software suite." },
+      { kind: "Design", title: "Style Guide", image: img("ui-pg-styleguide"), text: "Using the corporate style guide as a starting point, I created a secondary color palette for the suite of applications. Working with UXAs, we created a grid system to base the components on." },
+      { kind: "Design", title: "Spec Docs", image: img("ui-pg-specdocs"), text: "Working with UXAs and Development, I designed the look and feel of the widget creator, dashboard, widgets and web pages for the product." },
+      { kind: "Design", title: "Dashboard Widgets", image: img("ui-pg-widgets"), text: "The design of the widgets needed to be distinctive, crisp and clear, as there was an abundant amount of information that needed to be displayed in a very concise manner that was understandable in quick bites." },
+      { kind: "Design", title: "Community Web Pages", image: img("ui-pg-community"), text: "The Communities portion of the suite was a little more traditional in layout and structure, but needed to be flexible enough to handle a variety of different components and scenarios that were scalable." },
+    ],
+  },
+  {
+    id: "ui-grainger",
+    name: "Grainger",
+    client: "Apps, eCommerce & portals",
+    steps: [
+      { kind: "Synopsis", title: "Many screens, many products", image: img("ui-gr-synopsis"), text: "At Grainger, I worked on a variety of different projects across a myriad of screen sizes and applications. We launched the iPhone app, iPad app, a redesign of the eCommerce site, a Benefits Management portal, as well as a Selection Guide template." },
+    ],
+  },
+  {
+    id: "ui-medtronic",
+    name: "Medtronic",
+    client: "Insulin pump instructional app",
+    steps: [
+      { kind: "Synopsis", title: "Instructional DVD redesign", image: img("ui-md-synopsis"), text: "We were tasked with redesigning the Medtronic Insulin Pump instructional DVD that was given to all patients receiving the updated Paradigm Insulin Pump." },
+      { kind: "Process", title: "Wireframe & User Flow", image: img("ui-md-wireframe"), text: "Working with IAs, we created a basic site structure that closely followed the existing app, while allowing for a new interactive \"timeline\" at the bottom, to allow advanced users to freely navigate." },
+      { kind: "Design", title: "Flash-Based, Interactive Application", image: img("ui-md-design"), text: "After going through rounds of ideation, we settled on a more basic gray theme that allowed the Pump itself to be the highlight of each page." },
+    ],
+  },
+];
+
+const groups = [
+  { label: "UX Samples", items: projects },
+  { label: "UI Samples", items: uiProjects },
+];
+const allProjects = groups.flatMap((g) => g.items.map((p) => ({ ...p, group: g.label.replace(" Samples", "") })));
+
 function Index() {
   const [zoom, setZoom] = useState<Step | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -79,23 +127,24 @@ function Index() {
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
-  const links = [...projects.map((p) => ({ href: `#${p.id}`, label: p.name })), { href: "#contact", label: "Contact" }];
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       <header className={`sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <a href="#top" aria-label="Back to top" className="shrink-0"><img src={logo} alt="Len Perez logo" className="h-9 w-auto" /></a>
           <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
-            <div className="group relative">
-              <button type="button" aria-haspopup="true" className="flex items-center gap-1 py-2 uppercase tracking-widest transition-colors hover:text-primary group-focus-within:text-primary">
-                UX Samples <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
-              </button>
-              <div className="invisible absolute right-0 top-full min-w-56 border-t-2 border-primary bg-background opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                {projects.map((p) => (
-                  <a key={p.id} href={`#${p.id}`} onClick={(e) => (e.currentTarget as HTMLElement).blur()} className="block border-b border-border px-5 py-3 text-foreground transition-colors hover:bg-primary hover:text-primary-foreground">{p.name}</a>
-                ))}
+            {groups.map((g) => (
+              <div key={g.label} className="group relative">
+                <button type="button" aria-haspopup="true" className="flex items-center gap-1 py-2 uppercase tracking-widest transition-colors hover:text-primary group-focus-within:text-primary">
+                  {g.label} <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+                </button>
+                <div className="invisible absolute right-0 top-full min-w-56 border-t-2 border-primary bg-background opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  {g.items.map((p) => (
+                    <a key={p.id} href={`#${p.id}`} onClick={(e) => (e.currentTarget as HTMLElement).blur()} className="block border-b border-border px-5 py-3 text-foreground transition-colors hover:bg-primary hover:text-primary-foreground">{p.name}</a>
+                  ))}
+                </div>
               </div>
-            </div>
+            ))}
             <a href="#contact" className="text-primary">Contact</a>
           </div>
           <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 p-2 text-primary sm:hidden">
@@ -103,13 +152,16 @@ function Index() {
           </button>
         </nav>
         {menu && (
-          <div className="border-t border-border bg-background shadow-lg sm:hidden">
-            <div className="border-b border-border px-6 pb-2 pt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">UX Samples</div>
-            {links.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setMenu(false)} className="block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground hover:bg-primary hover:text-primary-foreground">
-                {l.label}
-              </a>
+          <div className="max-h-[80svh] overflow-auto border-t border-border bg-background shadow-lg sm:hidden">
+            {groups.map((g) => (
+              <div key={g.label}>
+                <div className="border-b border-border px-6 pb-2 pt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{g.label}</div>
+                {g.items.map((p) => (
+                  <a key={p.id} href={`#${p.id}`} onClick={() => setMenu(false)} className="block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground hover:bg-primary hover:text-primary-foreground">{p.name}</a>
+                ))}
+              </div>
             ))}
+            <a href="#contact" onClick={() => setMenu(false)} className="block px-6 py-4 text-sm font-semibold uppercase tracking-widest text-primary hover:bg-primary hover:text-primary-foreground">Contact</a>
           </div>
         )}
       </header>
@@ -124,12 +176,12 @@ function Index() {
         </p>
       </section>
 
-      {projects.map((p, idx) => (
+      {allProjects.map((p, idx) => (
         <section key={p.id} id={p.id} className="scroll-mt-16 pb-12">
           <div className="bg-primary text-primary-foreground">
             <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-3">
               <h2 className="font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
-              <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">0{idx + 1} — {p.client}</span>
+              <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{String(idx + 1).padStart(2, "0")} — {p.group} · {p.client}</span>
             </div>
           </div>
           <div className="mx-auto max-w-6xl px-6">
