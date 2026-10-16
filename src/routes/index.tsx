@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Maximize2, Menu, X } from "lucide-react";
+import { ChevronDown, Maximize2, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
@@ -85,10 +85,17 @@ function Index() {
       <header className={`sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <a href="#top" aria-label="Back to top" className="shrink-0"><img src={logo} alt="Len Perez logo" className="h-9 w-auto" /></a>
-          <div className="hidden gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
-            {projects.map((p) => (
-              <a key={p.id} href={`#${p.id}`} className="transition-colors hover:text-primary">{p.name}</a>
-            ))}
+          <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
+            <div className="group relative">
+              <button type="button" aria-haspopup="true" className="flex items-center gap-1 py-2 uppercase tracking-widest transition-colors hover:text-primary group-focus-within:text-primary">
+                UX Samples <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+              </button>
+              <div className="invisible absolute right-0 top-full min-w-56 border-t-2 border-primary bg-background opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                {projects.map((p) => (
+                  <a key={p.id} href={`#${p.id}`} onClick={(e) => (e.currentTarget as HTMLElement).blur()} className="block border-b border-border px-5 py-3 text-foreground transition-colors hover:bg-primary hover:text-primary-foreground">{p.name}</a>
+                ))}
+              </div>
+            </div>
             <a href="#contact" className="text-primary">Contact</a>
           </div>
           <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 p-2 text-primary sm:hidden">
