@@ -140,7 +140,7 @@ function Index() {
     return () => window.removeEventListener("scroll", on);
   }, []);
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
+    <div id="top" className="min-h-screen bg-background text-foreground font-sans">
       <header ref={headerRef} className={`sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <a href="#top" aria-label="Back to top" className="shrink-0"><img src={logo} alt="Len Perez logo" className="h-9 w-auto" /></a>
@@ -178,7 +178,7 @@ function Index() {
         )}
       </header>
 
-      <section id="top" className="scroll-mt-[var(--header-height,76px)] mx-auto flex min-h-[calc(100svh-var(--header-height,76px))] max-w-6xl flex-col justify-end px-6 pb-20">
+      <section className="mx-auto flex min-h-[calc(100svh-var(--header-height,76px))] max-w-6xl flex-col justify-end px-6 pb-20">
         <h1 className="font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] md:text-[14rem]">PIECES</h1>
         <p className="mt-6 text-xs uppercase tracking-[0.3em] text-muted-foreground">
           A collection of work from <span className="font-bold text-primary">Len Perez</span>
