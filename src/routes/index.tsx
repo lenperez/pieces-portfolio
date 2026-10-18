@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ChevronDown, Maximize2, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
@@ -118,9 +118,21 @@ const groups = [
 const allProjects = groups.flatMap((g) => g.items.map((p) => ({ ...p, group: g.label.replace(" Samples", "") })));
 
 function Index() {
+  const headerRef = useRef<HTMLElement>(null);
   const [zoom, setZoom] = useState<Step | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const updateHeight = () => {
+      header.parentElement?.style.setProperty("--header-height", `${header.getBoundingClientRect().height}px`);
+    };
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 4);
     on();
@@ -129,7 +141,7 @@ function Index() {
   }, []);
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
-      <header className={`sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
+      <header ref={headerRef} className={`sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <a href="#top" aria-label="Back to top" className="shrink-0"><img src={logo} alt="Len Perez logo" className="h-9 w-auto" /></a>
           <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
@@ -177,14 +189,14 @@ function Index() {
       </section>
 
       {allProjects.map((p, idx) => (
-        <section key={p.id} id={p.id} className="scroll-mt-16 pb-12">
-          <div className="bg-primary text-primary-foreground">
+        <section key={p.id} id={p.id} className="scroll-mt-[var(--header-height,72px)]">
+          <div className="sticky top-[var(--header-height,72px)] z-20 bg-primary text-primary-foreground">
             <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-3">
               <h2 className="font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
               <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{String(idx + 1).padStart(2, "0")} — {p.group} · {p.client}</span>
             </div>
           </div>
-          <div className="mx-auto max-w-6xl px-6">
+          <div className="mx-auto max-w-6xl px-6 pb-12">
             <div className="mt-8 space-y-10 md:space-y-14">
               {p.steps.map((s, i) => (
                 <article key={s.title} className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
