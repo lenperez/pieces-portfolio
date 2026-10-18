@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ChevronDown, Maximize2, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { ContactForm } from "@/components/ContactForm";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -227,17 +228,22 @@ function Index() {
         </section>
       ))}
 
-      <section id="contact" className="scroll-mt-16 bg-primary py-24 text-primary-foreground">
-        <div className="mx-auto max-w-6xl px-6">
+      <section id="contact" className="flex min-h-[calc(100svh-4.25rem)] scroll-mt-16 items-center bg-primary py-16 text-primary-foreground">
+        <div className="mx-auto w-full max-w-6xl px-6">
           <h2 className="font-display text-6xl font-extralight tracking-tight md:text-8xl">Contact</h2>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2">
-            <div>
-              <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Email</div>
-              <a href="mailto:lenperez@gmail.com" className="mt-2 block text-2xl font-light hover:underline">lenperez@gmail.com</a>
+          <div className="mt-12 grid gap-12 md:grid-cols-12">
+            <div className="space-y-8 md:col-span-4">
+              <div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Email</div>
+                <a href="mailto:lenperez@gmail.com" className="mt-2 block text-2xl font-light hover:underline">lenperez@gmail.com</a>
+              </div>
+              <div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Phone</div>
+                <a href="tel:7739916149" className="mt-2 block text-2xl font-light hover:underline">773.991.6149</a>
+              </div>
             </div>
-            <div>
-              <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Phone</div>
-              <a href="tel:7739916149" className="mt-2 block text-2xl font-light hover:underline">773.991.6149</a>
+            <div className="md:col-span-8">
+              <ContactForm />
             </div>
           </div>
         </div>
