@@ -254,7 +254,7 @@ function Index() {
           role="dialog"
           aria-modal="true"
           onClick={() => setZoom(null)}
-          className="fixed inset-0 z-50 flex cursor-zoom-out overflow-auto bg-foreground/80 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center cursor-zoom-out overflow-hidden bg-foreground/80 px-4 pb-4 pt-16 backdrop-blur-sm"
         >
           <button
             type="button"
@@ -264,7 +264,7 @@ function Index() {
           >
             <X className="h-5 w-5" />
           </button>
-          <img src={zoom.image} alt={zoom.title} onClick={(e) => e.stopPropagation()} className="m-auto max-w-none cursor-default" />
+          <img src={zoom.image} alt={zoom.title} onClick={(e) => e.stopPropagation()} className="block h-auto w-auto max-h-[calc(100dvh-5rem)] max-w-full object-contain cursor-default" />
         </div>
       )}
     </div>
