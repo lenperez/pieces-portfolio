@@ -148,12 +148,12 @@ function Index() {
           <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
             {groups.map((g) => (
               <div key={g.label} className="group relative">
-                <button type="button" aria-haspopup="true" className="flex items-center gap-1 py-2 uppercase tracking-widest transition-colors hover:text-primary group-focus-within:text-primary">
+                <button type="button" aria-haspopup="true" className={`flex items-center gap-1 py-2 uppercase tracking-widest transition-colors ${g.label === "UI Samples" ? "hover:text-ui-title group-focus-within:text-ui-title" : "hover:text-primary group-focus-within:text-primary"}`}>
                   {g.label} <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
                 </button>
                 <div className="invisible absolute right-0 top-full min-w-56 border-t-2 border-primary bg-background opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
                   {g.items.map((p) => (
-                    <a key={p.id} href={`#${p.id}`} onClick={(e) => (e.currentTarget as HTMLElement).blur()} className="block border-b border-border px-5 py-3 text-foreground transition-colors hover:bg-primary hover:text-primary-foreground">{p.name}</a>
+                    <a key={p.id} href={`#${p.id}`} onClick={(e) => (e.currentTarget as HTMLElement).blur()} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                   ))}
                 </div>
               </div>
@@ -170,7 +170,7 @@ function Index() {
               <div key={g.label}>
                 <div className="border-b border-border px-6 pb-2 pt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{g.label}</div>
                 {g.items.map((p) => (
-                  <a key={p.id} href={`#${p.id}`} onClick={() => setMenu(false)} className="block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground hover:bg-primary hover:text-primary-foreground">{p.name}</a>
+                  <a key={p.id} href={`#${p.id}`} onClick={() => setMenu(false)} className={`block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                 ))}
               </div>
             ))}
