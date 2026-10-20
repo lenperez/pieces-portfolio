@@ -183,12 +183,16 @@ function Index() {
 
       <section className="mx-auto flex min-h-[calc(100svh-var(--header-height,76px))] max-w-6xl flex-col justify-end px-6 pb-20">
         <h1 data-parallax="-2" data-parallax-hero="" className="font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] will-change-transform md:text-[14rem]">PIECES</h1>
-        <p className="fade-rise mt-6 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          A collection of work from <span className="font-bold text-primary">Len Perez</span>
-        </p>
-        <p className="fade-rise mt-10 max-w-xl text-lg font-light text-muted-foreground" style={{ animationDelay: "0.15s" }}>
-          UX design across research, interaction and visual systems — from heuristic reviews and storymaps to high-fidelity comps and spec docs.
-        </p>
+        <div data-parallax="-0.4" data-parallax-hero="" className="will-change-transform">
+          <p className="fade-rise mt-6 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            A collection of work from <span className="font-bold text-primary">Len Perez</span>
+          </p>
+        </div>
+        <div data-parallax="-0.25" data-parallax-hero="" className="will-change-transform">
+          <p className="fade-rise mt-10 max-w-xl text-lg font-light text-muted-foreground" style={{ animationDelay: "0.15s" }}>
+            UX design across research, interaction and visual systems — from heuristic reviews and storymaps to high-fidelity comps and spec docs.
+          </p>
+        </div>
       </section>
 
       {allProjects.map((p, idx) => (
