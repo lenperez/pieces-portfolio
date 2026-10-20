@@ -10,7 +10,7 @@ export function useParallax() {
       frame = 0;
       const vh = window.innerHeight;
       const factor = window.innerWidth < 768 ? 0.5 : 1;
-      document.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => {
+      document.querySelectorAll<HTMLElement>("[data-parallax], [data-fade-scroll]").forEach((el) => {
         const speed = Number(el.dataset["parallax"]) * factor;
         if (el.dataset["parallaxHero"] !== undefined) {
           const y = window.scrollY;
