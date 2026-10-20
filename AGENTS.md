@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep project title bars CSS-sticky within their project sections, using the observed header height as their offset so navigation resizing never causes overlap.
+- Use dedicated semantic UI title color tokens for UI project bars so their appearance can change independently of UX titles and other primary-colored surfaces.
