@@ -172,7 +172,7 @@
 }
 
 .fade-rise {
-  animation: fade-rise 0.9s ease-out both;
+  animation: fade-rise 0.9s ease-out 2s both;
 }
 
 @media (prefers-reduced-motion: reduce) {
