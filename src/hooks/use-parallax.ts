@@ -11,8 +11,8 @@ export function useParallax() {
       const vh = window.innerHeight;
       const factor = window.innerWidth < 768 ? 0.5 : 1;
       document.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => {
-        const speed = Number(el.dataset.parallax) * factor;
-        if (el.dataset.parallaxHero !== undefined) {
+        const speed = Number(el.dataset["parallax"]) * factor;
+        if (el.dataset["parallaxHero"] !== undefined) {
           const y = window.scrollY;
           if (y > vh * 1.2) return;
           el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
