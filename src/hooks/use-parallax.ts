@@ -16,7 +16,7 @@ export function useParallax() {
           const y = window.scrollY;
           if (y > vh * 1.2) return;
           el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
-          el.style.opacity = String(Math.max(0, 1 - y / (vh * 0.5)));
+          el.style.opacity = String(Math.max(0, 1 - y / (vh * 0.25)));
           return;
         }
         if (el.dataset["fadeScroll"] !== undefined) {
