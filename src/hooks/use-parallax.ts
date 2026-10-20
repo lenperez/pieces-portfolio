@@ -16,8 +16,17 @@ export function useParallax() {
           const y = window.scrollY;
           if (y > vh * 1.2) return;
           el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
-          const fadeSpan = vh * Number(el.dataset["parallaxFade"] || 0.5);
-          el.style.opacity = String(Math.max(0, 1 - y / fadeSpan));
+          const fadeAttr = el.dataset["parallaxFade"];
+          if (fadeAttr === "header") {
+            const headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 76;
+            const r = el.getBoundingClientRect();
+            const initialTop = r.top - y * speed;
+            const span = Math.max(1, initialTop - headerH);
+            el.style.opacity = String(Math.max(0, Math.min(1, (r.top - headerH) / span)));
+          } else {
+            const fadeSpan = vh * Number(fadeAttr || 0.5);
+            el.style.opacity = String(Math.max(0, 1 - y / fadeSpan));
+          }
           return;
         }
         if (el.dataset["fadeScroll"] !== undefined) {
