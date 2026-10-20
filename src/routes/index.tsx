@@ -192,7 +192,7 @@ function Index() {
           </p>
         </div>
         <div data-parallax="-0.25" data-parallax-hero="" className="will-change-transform">
-          <p className="fade-rise mt-10 max-w-xl text-lg font-light text-muted-foreground" style={{ animationDelay: "0.15s" }}>
+          <p className="fade-rise mt-10 max-w-xl text-lg font-light text-muted-foreground" style={{ animationDelay: "2.15s" }}>
             UX design across research, interaction and visual systems — from heuristic reviews and storymaps to high-fidelity comps and spec docs.
           </p>
         </div>
