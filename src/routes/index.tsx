@@ -204,7 +204,6 @@ function Index() {
               {p.steps.map((s, i) => (
                 <article key={s.title} className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
                   <div className={`md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
-                    <div data-parallax="0.12" className="will-change-transform">
                     <button
                       type="button"
                       onClick={() => setZoom(s)}
@@ -218,7 +217,6 @@ function Index() {
                         </span>
                       </span>
                     </button>
-                    </div>
                   </div>
                   <div className="order-first border-t border-border pt-5 md:order-none md:col-span-8">
                     <div className="label">{String(i + 1).padStart(2, "0")} · {s.kind}</div>
