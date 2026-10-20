@@ -209,7 +209,7 @@ function Index() {
           <div className="mx-auto max-w-6xl px-6 pb-12">
             <div className="mt-8 space-y-10 md:space-y-14">
               {p.steps.map((s, i) => (
-                <article key={s.title} {...(p.id === "purchasing" ? { "data-fade-scroll": "" } : {})} style={p.id === "purchasing" && i > 0 ? { marginTop: "-2rem" } : undefined} className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
+                <article key={s.title} {...(p.id === "purchasing" ? { "data-fade-scroll": "" } : {})} style={p.id === "purchasing" && i > 0 ? { marginTop: "-5rem" } : undefined} className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
                   <div className={`md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
                     <button
                       type="button"
