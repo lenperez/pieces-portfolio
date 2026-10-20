@@ -19,6 +19,15 @@ export function useParallax() {
           el.style.opacity = String(Math.max(0, 1 - y / (vh * 0.5)));
           return;
         }
+        if (el.dataset["fadeScroll"] !== undefined) {
+          const r = el.getBoundingClientRect();
+          if (r.bottom < -100 || r.top > vh + 100) return;
+          const topBar = 140;
+          const fadeIn = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.35)));
+          const fadeOut = Math.min(1, Math.max(0, (r.bottom - topBar) / (vh * 0.25)));
+          el.style.opacity = String(Math.min(fadeIn, fadeOut));
+          return;
+        }
         const r = el.parentElement!.getBoundingClientRect();
         if (r.bottom < -100 || r.top > vh + 100) return;
         const offset = (r.top + r.height / 2 - vh / 2) * speed;
