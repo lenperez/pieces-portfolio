@@ -15,6 +15,9 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [
+      { rel: "preload", as: "image", href: img("pp-timeline"), fetchpriority: "high" },
+    ],
   }),
   component: Index,
 });
@@ -214,7 +217,7 @@ function Index() {
                       className="group relative mx-auto block w-fit cursor-zoom-in"
                       aria-label={`Enlarge ${s.title}`}
                     >
-                      <img src={s.image} alt={`${p.name} — ${s.title}`} loading="lazy" className="max-h-60 w-auto object-contain" />
+                      <img src={s.image} alt={`${p.name} — ${s.title}`} loading={p.id === "purchasing" && i === 0 ? "eager" : "lazy"} fetchPriority={p.id === "purchasing" && i === 0 ? "high" : "auto"} className="max-h-60 w-auto object-contain" />
                       <span className="absolute inset-0 flex items-center justify-center bg-primary/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                         <span className="flex items-center gap-2 border border-primary-foreground px-4 py-2 text-xs font-semibold uppercase tracking-widest text-primary-foreground">
                           <Maximize2 className="h-4 w-4" /> Enlarge
