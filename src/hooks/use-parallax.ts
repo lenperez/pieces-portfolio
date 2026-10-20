@@ -10,13 +10,22 @@ export function useParallax() {
       frame = 0;
       const vh = window.innerHeight;
       const factor = window.innerWidth < 768 ? 0.5 : 1;
-      document.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => {
+      document.querySelectorAll<HTMLElement>("[data-parallax], [data-fade-scroll]").forEach((el) => {
         const speed = Number(el.dataset["parallax"]) * factor;
         if (el.dataset["parallaxHero"] !== undefined) {
           const y = window.scrollY;
           if (y > vh * 1.2) return;
           el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
           el.style.opacity = String(Math.max(0, 1 - y / (vh * 0.5)));
+          return;
+        }
+        if (el.dataset["fadeScroll"] !== undefined) {
+          const r = el.getBoundingClientRect();
+          if (r.bottom < -100 || r.top > vh + 100) return;
+          const topBar = 140;
+          const fadeIn = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.35)));
+          const fadeOut = Math.min(1, Math.max(0, (r.bottom - topBar) / (vh * 0.25)));
+          el.style.opacity = String(Math.min(fadeIn, fadeOut));
           return;
         }
         const r = el.parentElement!.getBoundingClientRect();
