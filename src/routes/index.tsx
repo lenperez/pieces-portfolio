@@ -182,7 +182,7 @@ function Index() {
       </header>
 
       <section className="mx-auto flex min-h-[calc(100svh-var(--header-height,76px))] max-w-6xl flex-col justify-end px-6 pb-20">
-        <h1 data-parallax="0.3" data-parallax-hero="" className="font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] will-change-transform md:text-[14rem]">PIECES</h1>
+        <h1 data-parallax="0.6" data-parallax-hero="" className="font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] will-change-transform md:text-[14rem]">PIECES</h1>
         <p className="mt-6 text-xs uppercase tracking-[0.3em] text-muted-foreground">
           A collection of work from <span className="font-bold text-primary">Len Perez</span>
         </p>
