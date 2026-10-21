@@ -172,7 +172,7 @@
 }
 
 .fade-rise {
-  animation: fade-rise 0.9s ease-out 2s both;
+  animation: fade-rise 0.9s ease-out 1s both;
 }
 
 @keyframes fade-in {
