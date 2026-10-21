@@ -36,12 +36,6 @@ export function useParallax() {
           const fadeIn = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.35)));
           const fadeOut = Math.min(1, Math.max(0, (r.bottom - topBar) / (vh * 0.25)));
           el.style.opacity = String(Math.min(fadeIn, fadeOut));
-          if (el.dataset["parallax"] !== undefined) {
-            const pr = el.parentElement!.getBoundingClientRect();
-            const offset = (pr.top + pr.height / 2 - vh / 2) * speed;
-            const py = Math.max(-MAX, Math.min(MAX, offset));
-            el.style.transform = `translate3d(0, ${py}px, 0)`;
-          }
           return;
         }
         const r = el.parentElement!.getBoundingClientRect();
