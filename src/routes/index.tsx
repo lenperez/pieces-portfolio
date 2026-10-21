@@ -269,7 +269,7 @@ function Index() {
             type="button"
             onClick={() => setZoom(null)}
             aria-label="Close"
-            className="fixed right-4 top-4 z-10 flex h-11 w-11 items-center justify-center bg-background text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+            className="fixed right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-background text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
           >
             <X className="h-5 w-5" />
           </button>
