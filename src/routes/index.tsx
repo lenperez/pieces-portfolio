@@ -207,7 +207,7 @@ function Index() {
             </div>
           </div>
           <div className="mx-auto max-w-6xl px-6 pb-12">
-            <div className="mt-4 space-y-4">
+            <div className="mt-4 space-y-6">
               {p.steps.map((s, i) => (
                 <article key={s.title} {...(p.id === "purchasing" ? { "data-fade-scroll": "" } : {})} className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
                   <div className={`md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
