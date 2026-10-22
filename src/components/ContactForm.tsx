@@ -43,7 +43,7 @@ export function ContactForm() {
 
   const field =
     "mt-2 block w-full border-0 border-b border-primary-foreground/50 bg-transparent px-0 py-2 text-lg font-light text-primary-foreground placeholder:text-primary-foreground/40 focus:border-primary-foreground focus:outline-none";
-  const label = "text-[11px] font-bold uppercase tracking-[0.18em] opacity-70";
+  const label = "sr-only";
   const err = (k: keyof Errors) =>
     errors[k] && <p className="mt-1 text-sm text-primary-foreground underline decoration-dotted">{errors[k]}</p>;
 
@@ -51,17 +51,17 @@ export function ContactForm() {
     <form onSubmit={onSubmit} noValidate className="space-y-6">
       <label className="block">
         <span className={label}>Name</span>
-        <input name="name" maxLength={100} className={field} autoComplete="name" />
+        <input name="name" placeholder="Name" maxLength={100} className={field} autoComplete="name" />
         {err("name")}
       </label>
       <label className="block">
         <span className={label}>Email</span>
-        <input name="email" type="email" maxLength={255} className={field} autoComplete="email" />
+        <input name="email" placeholder="Email" type="email" maxLength={255} className={field} autoComplete="email" />
         {err("email")}
       </label>
       <label className="block">
         <span className={label}>Message</span>
-        <textarea name="message" rows={5} maxLength={2000} className={`${field} resize-none`} />
+        <textarea name="message" placeholder="Message" rows={5} maxLength={2000} className={`${field} resize-none`} />
         {err("message")}
       </label>
       {err("form")}
