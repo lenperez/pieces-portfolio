@@ -137,7 +137,14 @@ function Index() {
     if (!header || !project) return;
     header.parentElement?.style.setProperty("--header-height", `${header.getBoundingClientRect().height}px`);
     window.history.pushState(null, "", `#${id}`);
-    project.scrollIntoView({ behavior: "instant", block: "start" });
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: window.scrollY + project.getBoundingClientRect().top - header.getBoundingClientRect().height,
+          behavior: "instant",
+        });
+      });
+    });
   }
   useEffect(() => {
     const header = headerRef.current;
