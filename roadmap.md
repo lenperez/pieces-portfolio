@@ -1,4 +1,4 @@
-## Mobile hero adjustments
-- [x] Ensure the title reaches zero opacity on scroll.
-- [x] Set subhead and body left inset to 16px and place Len Perez on the final subhead line.
-- [x] Verify the phone layout and scrolling behavior.
+## Header logo and mobile text
+- [ ] Match the header logo to UX title-bar navy without changing its artwork.
+- [ ] Update mobile subhead and body left inset to 24px.
+- [ ] Verify the logo and text spacing.
