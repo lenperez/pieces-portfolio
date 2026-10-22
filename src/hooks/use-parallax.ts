@@ -22,7 +22,7 @@ export function useParallax() {
             const r = el.getBoundingClientRect();
             const initialTop = r.top - y * speed;
             const span = Math.max(1, initialTop - headerH);
-            el.style.opacity = String(Math.max(0, Math.min(1, (r.top - headerH) / span)));
+            el.style.opacity = String(Math.max(0, Math.min(1, 1 - 3 * (initialTop - r.top) / span)));
           } else {
             const fadeSpan = vh * Number(fadeAttr || 0.5);
             el.style.opacity = String(Math.max(0, 1 - y / fadeSpan));
