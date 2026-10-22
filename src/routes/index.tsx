@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { createFileRoute } from "@tanstack/react-router";
 import { ChevronDown, Maximize2, Menu, X } from "lucide-react";
 import logo from "@/assets/favicon-light.svg.asset.json";
@@ -128,6 +129,16 @@ function Index() {
   const [zoom, setZoom] = useState<Step | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
+  function navigateFromMobileMenu(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
+    event.preventDefault();
+    flushSync(() => setMenu(false));
+    const header = headerRef.current;
+    const project = document.getElementById(id);
+    if (!header || !project) return;
+    header.parentElement?.style.setProperty("--header-height", `${header.getBoundingClientRect().height}px`);
+    window.history.pushState(null, "", `#${id}`);
+    project.scrollIntoView({ behavior: "instant", block: "start" });
+  }
   useEffect(() => {
     const header = headerRef.current;
     if (!header) return;
@@ -175,7 +186,7 @@ function Index() {
               <div key={g.label}>
                 <div className="border-b border-border px-6 pb-2 pt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{g.label}</div>
                 {g.items.map((p) => (
-                  <a key={p.id} href={`#${p.id}`} onClick={() => setMenu(false)} className={`block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
+                  <a key={p.id} href={`#${p.id}`} onClick={(event) => navigateFromMobileMenu(event, p.id)} className={`block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                 ))}
               </div>
             ))}
