@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ChevronDown, Maximize2, Menu, X } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/favicon-light.svg.asset.json";
 import { ContactForm } from "@/components/ContactForm";
 import { useParallax } from "@/hooks/use-parallax";
 
@@ -149,7 +149,7 @@ function Index() {
     <div id="top" className="min-h-screen bg-background text-foreground font-sans">
       <header ref={headerRef} className={`fade-rise sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" aria-label="Back to top" className="shrink-0"><img src={logo} alt="Len Perez logo" className="h-9 w-auto" /></a>
+          <a href="#top" aria-label="Back to top" className="shrink-0"><img src={logo.url} alt="Len Perez logo" className="h-9 w-auto" /></a>
           <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
             {groups.map((g) => (
               <div key={g.label} className="group relative">
