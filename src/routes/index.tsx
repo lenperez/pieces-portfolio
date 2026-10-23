@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { createFileRoute } from "@tanstack/react-router";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { ChevronDown, Maximize2, Menu, X } from "lucide-react";
 import logo from "@/assets/favicon-light.svg.asset.json";
 import { ContactForm } from "@/components/ContactForm";
@@ -182,10 +183,14 @@ function Index() {
               </div>
             ))}
             <a href="#contact" className="text-primary">Contact</a>
+            <ThemeToggle className="-my-2" />
           </div>
+          <div className="flex items-center gap-1 sm:hidden">
+          <ThemeToggle />
           <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 p-2 text-primary sm:hidden">
             {menu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
+          </div>
         </nav>
         {menu && (
           <div className="max-h-[80svh] overflow-auto border-t border-border bg-background shadow-lg sm:hidden">
