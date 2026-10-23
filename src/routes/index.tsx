@@ -205,12 +205,12 @@ function Index() {
       <section className="mx-auto flex min-h-[calc(100svh-var(--header-height,76px))] max-w-6xl flex-col justify-end px-6 pb-20">
         <h1 data-parallax="-1" data-parallax-hero="" data-parallax-fade="header" className="fade-in font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] will-change-transform md:text-[14rem]" onAnimationEnd={(e) => { e.currentTarget.classList.remove("fade-in"); window.dispatchEvent(new Event("scroll")); }}>PIECES</h1>
         <div data-parallax="-0.6" data-parallax-hero="" data-parallax-fade="0.3" className="will-change-transform">
-          <p className="fade-rise mt-6 text-xs uppercase tracking-[0.3em] text-muted-foreground sm:pl-4">
+          <p className="fade-rise mt-6 pl-2 text-xs uppercase tracking-[0.3em] text-muted-foreground sm:pl-4">
             A collection of work from <span className="block font-bold text-primary sm:inline">Len Perez</span>
           </p>
         </div>
         <div data-parallax="-0.25" data-parallax-hero="" data-parallax-fade="0.5" className="will-change-transform">
-          <p className="fade-rise mt-10 max-w-xl text-lg font-light text-muted-foreground sm:pl-4" style={{ animationDelay: "1.15s" }}>
+          <p className="fade-rise mt-10 max-w-xl pl-2 text-lg font-light text-muted-foreground sm:pl-4" style={{ animationDelay: "1.15s" }}>
             UX design across research, interaction and visual systems — from heuristic reviews and storymaps to high-fidelity comps and spec docs.
           </p>
         </div>
