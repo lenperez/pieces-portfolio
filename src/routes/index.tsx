@@ -286,7 +286,7 @@ function Index() {
           role="dialog"
           aria-modal="true"
           onClick={() => setZoom(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center cursor-zoom-out overflow-hidden bg-foreground/80 px-4 pb-4 pt-16 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center cursor-zoom-out overflow-hidden bg-scrim/80 px-4 pb-4 pt-16 backdrop-blur-sm"
         >
           <button
             type="button"
