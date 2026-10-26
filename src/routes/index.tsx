@@ -100,7 +100,7 @@ const uiProjects: Project[] = [
     name: "Medtronic",
     client: "Insulin pump instructional app",
     steps: [
-      { kind: "Synopsis", title: "Instructional DVD redesign", image: img("ui-md-synopsis"), text: "We were tasked with redesigning the Medtronic Insulin Pump instructional DVD that was given to all patients receiving the updated Paradigm Insulin Pump." },
+      { kind: "Synopsis", title: "Instructional DVD redesign", image: img("ui-md-synopsis-upload"), text: "We were tasked with redesigning the Medtronic Insulin Pump instructional DVD that was given to all patients receiving the updated Paradigm Insulin Pump." },
       { kind: "Process", title: "Wireframe & User Flow", image: img("ui-md-wireframe"), text: "Working with IAs, we created a basic site structure that closely followed the existing app, while allowing for a new interactive \"timeline\" at the bottom, to allow advanced users to freely navigate." },
       { kind: "Design", title: "Flash-Based, Interactive Application", image: img("ui-md-design"), text: "After going through rounds of ideation, we settled on a more basic gray theme that allowed the Pump itself to be the highlight of each page." },
     ],
