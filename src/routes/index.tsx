@@ -122,7 +122,13 @@ const groups = [
   { label: "UX Samples", items: projects },
   { label: "UI Samples", items: uiProjects },
 ];
-const allProjects = groups.flatMap((g) => g.items.map((p) => ({ ...p, group: g.label.replace(" Samples", "") })));
+export const allProjects = groups.flatMap((g) => g.items.map((p) => ({ ...p, group: g.label.replace(" Samples", "") })));
+const thirdProject = allProjects[2];
+const fifthProject = allProjects[4];
+if (thirdProject && fifthProject) {
+  allProjects[2] = fifthProject;
+  allProjects[4] = thirdProject;
+}
 
 function Index() {
   const headerRef = useRef<HTMLElement>(null);
