@@ -13,3 +13,4 @@
 - Use dedicated semantic UI title color tokens for UI project bars so their appearance can change independently of UX titles and other primary-colored surfaces.
 - Render the monochrome header logo as an asset mask with the primary color token so it stays synchronized with UX title bars.
 - Theme: .dark class on <html> set pre-paint by an inline script in __root.tsx (localStorage 'theme' overrides prefers-color-scheme); ThemeToggle keeps it in sync — avoids a flash of the wrong theme.
+- Portfolio display order is separate from navigation categories; preserve retained project numbers after removals and allow explicit banner overrides so requested identities are not renumbered.
