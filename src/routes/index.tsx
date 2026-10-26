@@ -55,8 +55,8 @@ const projects: Project[] = [
     client: "Benefit management tool",
     steps: [
       { kind: "Synopsis", title: "Scaling a channel", image: img("gr-synopsis"), text: "Grainger acquired a proprietary benefit management tool built for one channel, and needed it to scale across all of the company's offerings." },
-      { kind: "Process", title: "Heuristic", image: img("gr-heuristic-upload"), text: "A thorough understanding of the system's components and the purpose each served in completing the process." },
-      { kind: "Process", title: "Extrapolation & Simplification", image: img("gr-extrapolation"), text: "Whiteboarding to restructure components so they were interchangeable, while simplifying how information is entered and retrieved." },
+      { kind: "Process", title: "Heuristic", image: img("gr-heuristic-clean"), text: "A thorough understanding of the system's components and the purpose each served in completing the process." },
+      { kind: "Process", title: "Extrapolation & Simplification", image: img("gr-extrapolation-upload"), text: "Whiteboarding to restructure components so they were interchangeable, while simplifying how information is entered and retrieved." },
       { kind: "Design", title: "Basic Wireframes", image: img("gr-basic"), text: "Wireframes were created and iterated so simple interactions could be tested and vetted with the team and stakeholders, covering every scenario." },
       { kind: "Design", title: "Advanced Wireframes", image: img("gr-advanced"), text: "Once basic structure and functionality were agreed upon, more detailed wireframes were created with annotations and variants." },
       { kind: "Design", title: "High-Fidelity Comps", image: img("gr-hifi"), text: "Hi-fi comps gave real-world views of visual hierarchy, making sure all information was presented as clearly as possible." },
