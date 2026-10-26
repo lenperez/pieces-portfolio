@@ -2,3 +2,8 @@
 - [x] Match the header logo to UX title-bar navy without changing its artwork.
 - [x] Update mobile subhead and body left inset to 24px.
 - [x] Verify the logo and text spacing.
+
+## Grainger image updates
+- [x] Replace step 3 with the uploaded image and remove surrounding white background.
+- [x] Remove the bottom-left photo fragment from step 2.
+- [x] Verify both images and their enlarged views.
