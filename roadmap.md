@@ -10,4 +10,4 @@
 
 ## Press Ganey step 3 image
 - [x] Replace step 3 with the uploaded specification pages and remove the exterior background.
-- [ ] Verify the replacement and enlarged view.
+- [x] Verify the replacement and enlarged view.
