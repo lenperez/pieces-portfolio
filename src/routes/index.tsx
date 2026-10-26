@@ -112,7 +112,7 @@ const groups = [
   { label: "Visual Design", items: [uiProjects[0], ...projects.filter((p) => p.id === "press-ganey"), ...uiProjects.slice(1)].filter((p): p is Project => Boolean(p)) },
 ];
 export const allProjects = groups
-  .flatMap((g) => g.items.map((p) => ({ ...p, group: g.label.replace(" Samples", "") })))
+  .flatMap((g) => g.items.map((p) => ({ ...p, group: g.label === "Visual Design" ? "UI" : "UX" })))
   .sort((a, b) => {
     const order = ["purchasing", "grainger", "ui-press-ganey", "ui-purchasing", "press-ganey", "ui-grainger", "ui-medtronic"];
     return order.indexOf(a.id) - order.indexOf(b.id);
