@@ -4,6 +4,6 @@
 - [x] Verify the logo and text spacing.
 
 ## Grainger image updates
-- [ ] Replace step 3 with the uploaded image and remove surrounding white background.
-- [ ] Remove the bottom-left photo fragment from step 2.
-- [ ] Verify both images and their enlarged views.
+- [x] Replace step 3 with the uploaded image and remove surrounding white background.
+- [x] Remove the bottom-left photo fragment from step 2.
+- [x] Verify both images and their enlarged views.
