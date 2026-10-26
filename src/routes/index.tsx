@@ -28,7 +28,7 @@ const imgs = import.meta.glob("@/assets/work/*.png", { eager: true, import: "def
 const img = (n: string) => Object.entries(imgs).find(([k]) => k.endsWith(`/${n}.png`))![1];
 
 type Step = { kind: string; title: string; text: string; image: string };
-type Project = { id: string; name: string; client: string; steps: Step[] };
+type Project = { id: string; name: string; client: string; steps: Step[]; banner?: string };
 
 const projects: Project[] = [
   {
@@ -65,7 +65,8 @@ const projects: Project[] = [
   {
     id: "press-ganey",
     name: "Press Ganey",
-    client: "Style guide & spec docs",
+    client: "Dashboard & Community Suite",
+    banner: "05 – UI • Dashboard & Community Suite",
     steps: [
       { kind: "Synopsis", title: "Second-gen suite", image: img("pg-synopsis-upload"), text: "A style guide and specification document for a second-generation user dashboard and medical community web suite." },
       { kind: "Design", title: "Style Guide", image: img("pg-styleguide-upload"), text: "Extending the corporate guide with a secondary palette, plus a grid system built with UXAs for every component." },
@@ -84,18 +85,6 @@ const uiProjects: Project[] = [
     steps: [
       { kind: "Synopsis", title: "Complete Site Redesign", image: img("ui-pp-synopsis"), text: "Completely redesigned an eCommerce site into a mobile-friendly, responsive & adaptive experience that allowed for quick scanning of relevant information." },
       { kind: "Design", title: "Paint Selection Tool", image: img("ui-pp-paint"), text: "Designed a more intuitive interface for their Paint Selection overlay that was more interactive, and allowed a user in real-time to see what colors matched and complemented each other." },
-    ],
-  },
-  {
-    id: "ui-press-ganey",
-    name: "Press Ganey",
-    client: "Dashboard & community suite",
-    steps: [
-      { kind: "Synopsis", title: "Second-gen suite", image: img("ui-pg-synopsis"), text: "Press Ganey needed a Style Guide and Specification Document created for their second-generation user dashboard and medical community web software suite." },
-      { kind: "Design", title: "Style Guide", image: img("ui-pg-styleguide"), text: "Using the corporate style guide as a starting point, I created a secondary color palette for the suite of applications. Working with UXAs, we created a grid system to base the components on." },
-      { kind: "Design", title: "Spec Docs", image: img("ui-pg-specdocs"), text: "Working with UXAs and Development, I designed the look and feel of the widget creator, dashboard, widgets and web pages for the product." },
-      { kind: "Design", title: "Dashboard Widgets", image: img("ui-pg-widgets"), text: "The design of the widgets needed to be distinctive, crisp and clear, as there was an abundant amount of information that needed to be displayed in a very concise manner that was understandable in quick bites." },
-      { kind: "Design", title: "Community Web Pages", image: img("ui-pg-community"), text: "The Communities portion of the suite was a little more traditional in layout and structure, but needed to be flexible enough to handle a variety of different components and scenarios that were scalable." },
     ],
   },
   {
@@ -119,8 +108,8 @@ const uiProjects: Project[] = [
 ];
 
 const groups = [
-  { label: "UX Samples", items: projects },
-  { label: "UI Samples", items: uiProjects },
+  { label: "UX Samples", items: projects.filter((p) => p.id !== "press-ganey") },
+  { label: "UI Samples", items: [uiProjects[0], ...projects.filter((p) => p.id === "press-ganey"), ...uiProjects.slice(1)].filter((p): p is Project => Boolean(p)) },
 ];
 export const allProjects = groups
   .flatMap((g) => g.items.map((p) => ({ ...p, group: g.label.replace(" Samples", "") })))
@@ -231,7 +220,7 @@ function Index() {
           <div className={`sticky top-[var(--header-height,72px)] z-20 ${p.group === "UI" ? "bg-ui-title text-ui-title-foreground" : "bg-primary text-primary-foreground"}`}>
             <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-3">
               <h2 className="font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
-              <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{String(idx + 1).padStart(2, "0")} — {p.group} · {p.client}</span>
+              <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{p.banner ?? `${String(idx < 2 ? idx + 1 : idx + 2).padStart(2, "0")} — ${p.group} · ${p.client}`}</span>
             </div>
           </div>
           <div className="mx-auto max-w-6xl px-6 pb-12">
