@@ -122,7 +122,12 @@ const groups = [
   { label: "UX Samples", items: projects },
   { label: "UI Samples", items: uiProjects },
 ];
-const allProjects = groups.flatMap((g) => g.items.map((p) => ({ ...p, group: g.label.replace(" Samples", "") })));
+export const allProjects = groups
+  .flatMap((g) => g.items.map((p) => ({ ...p, group: g.label.replace(" Samples", "") })))
+  .sort((a, b) => {
+    const order = ["purchasing", "grainger", "ui-press-ganey", "ui-purchasing", "press-ganey", "ui-grainger", "ui-medtronic"];
+    return order.indexOf(a.id) - order.indexOf(b.id);
+  });
 
 function Index() {
   const headerRef = useRef<HTMLElement>(null);
