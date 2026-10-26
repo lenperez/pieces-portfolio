@@ -68,7 +68,7 @@ const projects: Project[] = [
     client: "Style guide & spec docs",
     steps: [
       { kind: "Synopsis", title: "Second-gen suite", image: img("pg-synopsis-upload"), text: "A style guide and specification document for a second-generation user dashboard and medical community web suite." },
-      { kind: "Design", title: "Style Guide", image: img("pg-styleguide"), text: "Extending the corporate guide with a secondary palette, plus a grid system built with UXAs for every component." },
+      { kind: "Design", title: "Style Guide", image: img("pg-styleguide-upload"), text: "Extending the corporate guide with a secondary palette, plus a grid system built with UXAs for every component." },
       { kind: "Design", title: "Spec Docs", image: img("pg-specdocs"), text: "Look and feel for the widget creator, dashboard, widgets and web pages, working with UXAs and development." },
       { kind: "Design", title: "Dashboard Widgets", image: img("pg-widgets"), text: "Distinctive, crisp and clear — dense information made understandable in quick bites." },
       { kind: "Design", title: "Community Web Pages", image: img("pg-community"), text: "A more traditional layout, flexible enough to scale across many components and scenarios." },
