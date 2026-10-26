@@ -7,3 +7,7 @@
 - [x] Replace step 3 with the uploaded image and remove surrounding white background.
 - [x] Remove the bottom-left photo fragment from step 2.
 - [x] Verify both images and their enlarged views.
+
+## Press Ganey step 3 image
+- [x] Replace step 3 with the uploaded specification pages and remove the exterior background.
+- [x] Verify the replacement and enlarged view.
