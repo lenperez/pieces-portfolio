@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { createFileRoute } from "@tanstack/react-router";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { ChevronDown, Maximize2, Menu, X } from "lucide-react";
+import { BarChart3, ChevronDown, Layers, Lightbulb, Maximize2, Menu, Users, X } from "lucide-react";
 import logo from "@/assets/favicon-light.svg.asset.json";
 import analyticsImage from "@/assets/work/pp-analytics-upload.png.asset.json";
 import { ContactForm } from "@/components/ContactForm";
@@ -178,6 +178,7 @@ function Index() {
                 </div>
               </div>
             ))}
+            <a href="#about" className="text-primary">About</a>
             <a href="#contact" className="text-primary">Contact</a>
             <ThemeToggle className="-my-2" />
           </div>
@@ -198,6 +199,7 @@ function Index() {
                 ))}
               </div>
             ))}
+            <a href="#about" onClick={(event) => navigateFromMobileMenu(event, "about")} className="block px-6 py-4 text-sm font-semibold uppercase tracking-widest text-primary hover:bg-primary hover:text-primary-foreground">About</a>
             <a href="#contact" onClick={() => setMenu(false)} className="block px-6 py-4 text-sm font-semibold uppercase tracking-widest text-primary hover:bg-primary hover:text-primary-foreground">Contact</a>
           </div>
         )}
@@ -255,6 +257,33 @@ function Index() {
           </div>
         </section>
       ))}
+
+      <section id="about" aria-labelledby="about-heading" className="flex min-h-[calc(100svh-var(--header-height,72px))] scroll-mt-[var(--header-height,72px)] items-center border-t border-border py-16">
+        <div className="mx-auto w-full max-w-6xl px-6">
+          <h2 id="about-heading" className="font-display text-6xl font-extralight md:text-8xl">About</h2>
+          <div className="mt-12 grid gap-12 lg:grid-cols-2">
+            <div>
+              <h3 className="font-display text-3xl font-light leading-tight md:text-4xl">Designing experiences that are purposeful &amp; human.</h3>
+              <p className="mt-8 text-lg leading-relaxed text-muted-foreground">I'm a UX designer with a process-first approach — every decision is grounded in research, validated through data, and refined through collaboration.</p>
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">From redesigning enterprise eProcurement platforms to building style guides for medical community dashboards, I thrive where complexity meets clarity.</p>
+            </div>
+            <div className="grid gap-8 sm:grid-cols-2">
+              {[
+                { title: "User Research", text: "Persona development, heat mapping, user flows", icon: Users },
+                { title: "UX Strategy", text: "Heuristic analysis, storymapping, competitive research", icon: Layers },
+                { title: "Design", text: "Lo-fi wireframes, hi-fi comps, style guides", icon: Lightbulb },
+                { title: "Analytics", text: "Data-driven decisions, bounce rate analysis, screen sizing", icon: BarChart3 },
+              ].map(({ title, text, icon: Icon }) => (
+                <div key={title} className="border-t border-border pt-5">
+                  <Icon aria-hidden="true" className="h-7 w-7 text-primary" />
+                  <h3 className="mt-4 font-display text-xl font-semibold">{title}</h3>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section id="contact" className="flex min-h-[calc(100svh-4.25rem)] scroll-mt-16 items-center bg-primary py-16 text-primary-foreground">
         <div className="mx-auto w-full max-w-6xl px-6">
