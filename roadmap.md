@@ -13,4 +13,4 @@
 - [x] Verify the replacement and enlarged view.
 
 ## Contact email
-- [ ] Update the contact email link to me@lenperez.com and verify its destination.
+- [x] Update the contact email link to me@lenperez.com and verify its destination.
