@@ -28,5 +28,5 @@
 - [x] Verify the visible projects, navigation, and banners.
 
 ## About section
-- [ ] Add the uploaded image's About content after Medtronic and before Contact.
-- [ ] Verify the section and its header link on desktop and phone.
+- [x] Add the uploaded image's About content after Medtronic and before Contact.
+- [x] Verify the section and its header link on desktop and phone.
