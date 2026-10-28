@@ -109,7 +109,7 @@ const uiProjects: Project[] = [
 
 const groups = [
   { label: "Case Studies", items: projects.filter((p) => p.id !== "press-ganey") },
-  { label: "UX/UI Design", items: [uiProjects[0], ...projects.filter((p) => p.id === "press-ganey"), ...uiProjects.slice(1)].filter((p): p is Project => Boolean(p) && p.steps.length > 0) },
+  { label: "UX/UI Design", items: [uiProjects[0], ...projects.filter((p) => p.id === "press-ganey"), ...uiProjects.slice(1)].filter((p): p is Project => p !== undefined && p.steps.length > 0) },
 ];
 export const allProjects = groups
   .flatMap((g) => g.items.map((p) => ({ ...p, group: g.label === "UX/UI Design" ? "UI" : "UX" })))
