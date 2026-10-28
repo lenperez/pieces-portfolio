@@ -11,3 +11,6 @@
 ## Press Ganey step 3 image
 - [x] Replace step 3 with the uploaded specification pages and remove the exterior background.
 - [x] Verify the replacement and enlarged view.
+
+## Contact email
+- [ ] Update the contact email link to me@lenperez.com and verify its destination.

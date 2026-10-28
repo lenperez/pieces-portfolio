@@ -262,7 +262,7 @@ function Index() {
             <div className="space-y-8 md:col-span-4">
               <div>
                 <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Email</div>
-                <a href="mailto:lenperez@gmail.com" className="mt-2 block text-2xl font-light hover:underline">lenperez@gmail.com</a>
+                <a href="mailto:me@lenperez.com" className="mt-2 block text-2xl font-light hover:underline">me@lenperez.com</a>
               </div>
               <div>
                 <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Phone</div>
