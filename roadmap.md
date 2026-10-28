@@ -22,3 +22,7 @@
 ## Paint Selection Tool move
 - [x] Move project 4's remaining step before project 1's current step 12.
 - [x] Hide the now-empty project 4 while preserving retained project numbers, and verify the step order.
+
+## Final project numbering
+- [x] Number Press Ganey 03, hide UI Grainger, and number Medtronic 04.
+- [x] Verify the visible projects, navigation, and banners.
