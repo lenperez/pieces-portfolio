@@ -4,6 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ChevronDown, Maximize2, Menu, X } from "lucide-react";
 import logo from "@/assets/favicon-light.svg.asset.json";
+import analyticsImage from "@/assets/work/pp-analytics-upload.png.asset.json";
 import { ContactForm } from "@/components/ContactForm";
 import { useParallax } from "@/hooks/use-parallax";
 
@@ -42,7 +43,7 @@ const projects: Project[] = [
       { kind: "Process", title: "Persona Development", image: img("pp-personas"), text: "Understanding the user base and the needs of different groups — ever-changing descriptors that ground interaction and layout decisions." },
       { kind: "Process", title: "Storymapping", image: img("pp-storymap"), text: "Streamlined user-flows indicating which back-end components link into each page and step of the process." },
       { kind: "Process", title: "Heat Mapping", image: img("pp-heatmap"), text: "Insights into how users navigated the current structure — what was used most and what felt necessary to get through the site." },
-      { kind: "Process", title: "Analytics", image: img("pp-analytics"), text: "Diving into the numbers: which screen sizes were used most, bounce rates, where users dropped off, and purchasing habits to aid marketing." },
+      { kind: "Process", title: "Analytics", image: analyticsImage.url, text: "Diving into the numbers: which screen sizes were used most, bounce rates, where users dropped off, and purchasing habits to aid marketing." },
       { kind: "Process", title: "User Flow", image: img("pp-userflow"), text: "User flows show where the challenges were and where processes could be streamlined for the quickest, simplest route to conversion." },
       { kind: "Process", title: "Whiteboarding", image: img("pp-whiteboard"), text: "Heavy sketching on whiteboards to quickly facilitate ideas and iterate on interactions as a group, discussing design decisions together." },
       { kind: "Design", title: "Lo-Fidelity Wireframing / Prototyping", image: img("pp-lofi"), text: "Lo-fi wireframes and prototypes clarified page structure and interactions, letting the team feel the flow and hammer out limitations not seen earlier." },
