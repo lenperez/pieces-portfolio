@@ -5,6 +5,8 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { BarChart3, ChevronDown, Layers, Lightbulb, Maximize2, Menu, Users, X } from "lucide-react";
 import logo from "@/assets/favicon-light.svg.asset.json";
 import analyticsImage from "@/assets/work/pp-analytics-upload.png.asset.json";
+import resume from "@/assets/resume.pdf.asset.json";
+import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/ContactForm";
 import { useParallax } from "@/hooks/use-parallax";
 
@@ -180,9 +182,15 @@ function Index() {
             ))}
             <a href="#about" className="text-primary">About</a>
             <a href="#contact" className="text-primary">Contact</a>
+            <Button asChild variant="outline" size="sm" className="uppercase tracking-widest text-primary">
+              <a href={resume.url} target="_blank" rel="noopener noreferrer">Résumé</a>
+            </Button>
             <ThemeToggle className="-my-2" />
           </div>
           <div className="flex items-center gap-1 sm:hidden">
+          <Button asChild variant="outline" size="sm" className="mr-2 text-primary">
+            <a href={resume.url} target="_blank" rel="noopener noreferrer">Résumé</a>
+          </Button>
           <ThemeToggle />
           <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 p-2 text-primary sm:hidden">
             {menu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
