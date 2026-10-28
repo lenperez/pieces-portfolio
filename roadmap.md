@@ -18,3 +18,7 @@
 ## Purchasing step move
 - [x] Move project 4's first step before project 1's first step, preserving its image and description.
 - [x] Verify both projects and their new step order.
+
+## Paint Selection Tool move
+- [x] Move project 4's remaining step before project 1's current step 12.
+- [x] Hide the now-empty project 4 while preserving retained project numbers, and verify the step order.

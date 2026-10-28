@@ -48,6 +48,7 @@ const projects: Project[] = [
       { kind: "Process", title: "User Flow", image: img("pp-userflow"), text: "User flows show where the challenges were and where processes could be streamlined for the quickest, simplest route to conversion." },
       { kind: "Process", title: "Whiteboarding", image: img("pp-whiteboard"), text: "Heavy sketching on whiteboards to quickly facilitate ideas and iterate on interactions as a group, discussing design decisions together." },
       { kind: "Design", title: "Lo-Fidelity Wireframing / Prototyping", image: img("pp-lofi"), text: "Lo-fi wireframes and prototypes clarified page structure and interactions, letting the team feel the flow and hammer out limitations not seen earlier." },
+      { kind: "Design", title: "Paint Selection Tool", image: img("ui-pp-paint"), text: "Designed a more intuitive interface for their Paint Selection overlay that was more interactive, and allowed a user in real-time to see what colors matched and complemented each other." },
       { kind: "Design", title: "High-Fidelity Comps", image: img("pp-hifi"), text: "Using the established style guide, high-fidelity comps show how the site will look and behave across platforms and screen sizes." },
     ],
   },
@@ -84,9 +85,7 @@ const uiProjects: Project[] = [
     id: "ui-purchasing",
     name: "Purchasing Platform",
     client: "Complete site redesign",
-    steps: [
-      { kind: "Design", title: "Paint Selection Tool", image: img("ui-pp-paint"), text: "Designed a more intuitive interface for their Paint Selection overlay that was more interactive, and allowed a user in real-time to see what colors matched and complemented each other." },
-    ],
+    steps: [],
   },
   {
     id: "ui-grainger",
@@ -110,7 +109,7 @@ const uiProjects: Project[] = [
 
 const groups = [
   { label: "Case Studies", items: projects.filter((p) => p.id !== "press-ganey") },
-  { label: "UX/UI Design", items: [uiProjects[0], ...projects.filter((p) => p.id === "press-ganey"), ...uiProjects.slice(1)].filter((p): p is Project => Boolean(p)) },
+  { label: "UX/UI Design", items: [uiProjects[0], ...projects.filter((p) => p.id === "press-ganey"), ...uiProjects.slice(1)].filter((p): p is Project => p !== undefined && p.steps.length > 0) },
 ];
 export const allProjects = groups
   .flatMap((g) => g.items.map((p) => ({ ...p, group: g.label === "UX/UI Design" ? "UI" : "UX" })))
@@ -216,12 +215,12 @@ function Index() {
         </div>
       </section>
 
-      {allProjects.map((p, idx) => (
+      {allProjects.map((p) => (
         <section key={p.id} id={p.id} className="scroll-mt-[var(--header-height,72px)]">
           <div className={`sticky top-[var(--header-height,72px)] z-20 ${p.group === "UI" ? "bg-ui-title text-ui-title-foreground" : "bg-primary text-primary-foreground"}`}>
             <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-3">
               <h2 className="font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
-              <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{p.banner ?? `${String(idx < 2 ? idx + 1 : idx + 2).padStart(2, "0")} — ${p.group} · ${p.client}`}</span>
+              <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{p.banner ?? `${({ purchasing: "01", grainger: "02", "ui-purchasing": "04", "press-ganey": "05", "ui-grainger": "06", "ui-medtronic": "07" } as Record<string, string>)[p.id]} — ${p.group} · ${p.client}`}</span>
             </div>
           </div>
           <div className="mx-auto max-w-6xl px-6 pb-12">
