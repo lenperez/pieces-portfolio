@@ -28,7 +28,6 @@ describe("Portfolio project order", () => {
       "purchasing",
       "grainger",
       "press-ganey",
-      "ui-grainger",
       "ui-medtronic",
     ]);
   });
@@ -37,5 +36,17 @@ describe("Portfolio project order", () => {
     const project = allProjects.find((p) => p.id === "press-ganey");
     expect(project?.group).toBe("UI");
     expect(project?.steps[2]?.image).toContain("pg-specdocs-upload.png");
+  });
+
+  it("numbers Press Ganey as project 3", () => {
+    expect(allProjects.find((p) => p.id === "press-ganey")?.number).toBe("03");
+  });
+
+  it("hides former project 6", () => {
+    expect(allProjects.some((p) => p.id === "ui-grainger")).toBe(false);
+  });
+
+  it("numbers Medtronic as project 4", () => {
+    expect(allProjects.find((p) => p.id === "ui-medtronic")?.number).toBe("04");
   });
 });

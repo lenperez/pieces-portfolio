@@ -29,7 +29,7 @@ const imgs = import.meta.glob("@/assets/work/*.png", { eager: true, import: "def
 const img = (n: string) => Object.entries(imgs).find(([k]) => k.endsWith(`/${n}.png`))![1];
 
 type Step = { kind: string; title: string; text: string; image: string };
-type Project = { id: string; name: string; client: string; steps: Step[]; banner?: string };
+type Project = { id: string; name: string; client: string; steps: Step[]; banner?: string; hidden?: boolean };
 
 const projects: Project[] = [
   {
@@ -69,7 +69,7 @@ const projects: Project[] = [
     id: "press-ganey",
     name: "Press Ganey",
     client: "Dashboard & Community Suite",
-    banner: "05 – UI • Dashboard & Community Suite",
+    banner: "03 – UI • Dashboard & Community Suite",
     steps: [
       { kind: "Synopsis", title: "Second-gen suite", image: img("pg-synopsis-upload"), text: "A style guide and specification document for a second-generation user dashboard and medical community web suite." },
       { kind: "Design", title: "Style Guide", image: img("pg-styleguide-upload"), text: "Extending the corporate guide with a secondary palette, plus a grid system built with UXAs for every component." },
@@ -89,6 +89,7 @@ const uiProjects: Project[] = [
   },
   {
     id: "ui-grainger",
+    hidden: true,
     name: "Grainger",
     client: "Apps, eCommerce & portals",
     steps: [
@@ -109,10 +110,11 @@ const uiProjects: Project[] = [
 
 const groups = [
   { label: "Case Studies", items: projects.filter((p) => p.id !== "press-ganey") },
-  { label: "UX/UI Design", items: [uiProjects[0], ...projects.filter((p) => p.id === "press-ganey"), ...uiProjects.slice(1)].filter((p): p is Project => p !== undefined && p.steps.length > 0) },
+  { label: "UX/UI Design", items: [uiProjects[0], ...projects.filter((p) => p.id === "press-ganey"), ...uiProjects.slice(1)].filter((p): p is Project => p !== undefined && !p.hidden && p.steps.length > 0) },
 ];
+const projectNumbers: Record<string, string> = { purchasing: "01", grainger: "02", "press-ganey": "03", "ui-medtronic": "04" };
 export const allProjects = groups
-  .flatMap((g) => g.items.map((p) => ({ ...p, group: g.label === "UX/UI Design" ? "UI" : "UX" })))
+  .flatMap((g) => g.items.map((p) => ({ ...p, number: projectNumbers[p.id], group: g.label === "UX/UI Design" ? "UI" : "UX" })))
   .sort((a, b) => {
     const order = ["purchasing", "grainger", "ui-press-ganey", "ui-purchasing", "press-ganey", "ui-grainger", "ui-medtronic"];
     return order.indexOf(a.id) - order.indexOf(b.id);
@@ -220,7 +222,7 @@ function Index() {
           <div className={`sticky top-[var(--header-height,72px)] z-20 ${p.group === "UI" ? "bg-ui-title text-ui-title-foreground" : "bg-primary text-primary-foreground"}`}>
             <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-3">
               <h2 className="font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
-              <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{p.banner ?? `${({ purchasing: "01", grainger: "02", "ui-purchasing": "04", "press-ganey": "05", "ui-grainger": "06", "ui-medtronic": "07" } as Record<string, string>)[p.id]} — ${p.group} · ${p.client}`}</span>
+              <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{p.banner ?? `${p.number} — ${p.group} · ${p.client}`}</span>
             </div>
           </div>
           <div className="mx-auto max-w-6xl px-6 pb-12">
