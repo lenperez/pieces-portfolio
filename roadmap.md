@@ -14,3 +14,7 @@
 
 ## Contact email
 - [x] Update the contact email link to me@lenperez.com and verify its destination.
+
+## Purchasing step move
+- [x] Move project 4's first step before project 1's first step, preserving its image and description.
+- [x] Verify both projects and their new step order.

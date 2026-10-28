@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      { rel: "preload", as: "image", href: img("pp-timeline"), fetchpriority: "high" },
+      { rel: "preload", as: "image", href: img("ui-pp-synopsis"), fetchpriority: "high" },
     ],
   }),
   component: Index,
@@ -37,6 +37,7 @@ const projects: Project[] = [
     name: "Purchasing Platform",
     client: "eProcurement redesign",
     steps: [
+      { kind: "Synopsis", title: "Complete Site Redesign", image: img("ui-pp-synopsis"), text: "Completely redesigned an eCommerce site into a mobile-friendly, responsive & adaptive experience that allowed for quick scanning of relevant information." },
       { kind: "Synopsis", title: "Timeline Development", image: img("pp-timeline"), text: "Redesigning a complete eProcurement platform from search & browse through to checkout — starting with timing, resources, KPIs and strategic goals." },
       { kind: "Process", title: "Heuristic", image: img("pp-heuristic"), text: "Understanding the current site's pain-points and technical challenges to set the right approach for interaction design, page structure, content and hierarchy." },
       { kind: "Process", title: "Competitive / Comparative Analysis", image: img("pp-competitive"), text: "Gathering insights from market competitors and like-minded establishments to glean best practices and proof-in-practice methodologies." },
@@ -84,7 +85,6 @@ const uiProjects: Project[] = [
     name: "Purchasing Platform",
     client: "Complete site redesign",
     steps: [
-      { kind: "Synopsis", title: "Complete Site Redesign", image: img("ui-pp-synopsis"), text: "Completely redesigned an eCommerce site into a mobile-friendly, responsive & adaptive experience that allowed for quick scanning of relevant information." },
       { kind: "Design", title: "Paint Selection Tool", image: img("ui-pp-paint"), text: "Designed a more intuitive interface for their Paint Selection overlay that was more interactive, and allowed a user in real-time to see what colors matched and complemented each other." },
     ],
   },
