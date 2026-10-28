@@ -26,3 +26,7 @@
 ## Final project numbering
 - [x] Number Press Ganey 03, hide UI Grainger, and number Medtronic 04.
 - [x] Verify the visible projects, navigation, and banners.
+
+## About section
+- [ ] Add the uploaded image's About content after Medtronic and before Contact.
+- [ ] Verify the section and its header link on desktop and phone.
