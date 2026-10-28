@@ -10,14 +10,23 @@ describe("Portfolio project order", () => {
       "Timeline Development",
     ]);
     expect(project1?.steps[0]?.image).toContain("ui-pp-synopsis.png");
-    expect(project4?.steps.map((s) => s.title)).toEqual(["Paint Selection Tool"]);
+    expect(project4).toBeUndefined();
+  });
+
+  it("moves Paint Selection Tool before the former step 12 of project 1", () => {
+    const project = allProjects.find((p) => p.id === "purchasing");
+    expect(project?.steps.slice(10).map((s) => s.title)).toEqual([
+      "Lo-Fidelity Wireframing / Prototyping",
+      "Paint Selection Tool",
+      "High-Fidelity Comps",
+    ]);
+    expect(project?.steps[11]?.image).toContain("ui-pp-paint.png");
   });
 
   it("removes former project 3 and preserves the remaining project order", () => {
     expect(allProjects.map(({ id }) => id)).toEqual([
       "purchasing",
       "grainger",
-      "ui-purchasing",
       "press-ganey",
       "ui-grainger",
       "ui-medtronic",
