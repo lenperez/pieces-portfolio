@@ -283,14 +283,12 @@ function Index() {
 
       <section id="about" aria-labelledby="about-heading" className="flex min-h-[calc(100svh-var(--header-height,72px))] scroll-mt-[var(--header-height,72px)] items-center border-t border-border py-16">
         <div className="mx-auto w-full max-w-6xl px-6">
-          <div className="flex items-center gap-6 md:gap-10">
-            <div className="h-32 w-24 shrink-0 overflow-hidden rounded-md bg-muted shadow-md md:h-48 md:w-36">
+          <div className="grid grid-cols-[auto_1fr] items-center gap-x-6 gap-y-6 sm:gap-y-4 md:gap-x-10">
+            <div className="h-32 w-24 shrink-0 overflow-hidden rounded-md bg-muted shadow-md sm:row-span-2 md:h-48 md:w-36">
               {aboutPhoto && <img src={aboutPhoto} alt="Len Perez as a kid, school photo" className="h-full w-full object-cover" />}
             </div>
-            <div className="min-w-0">
-              <h2 id="about-heading" className="font-display text-5xl font-extralight md:text-8xl">About me...</h2>
-              <h3 className="mt-4 font-display text-xl font-light leading-tight md:text-4xl">Designing human-centered experiences to make lives easier.</h3>
-            </div>
+            <h2 id="about-heading" className="min-w-0 font-display text-5xl font-extralight sm:self-end md:text-8xl">About me...</h2>
+            <h3 className="col-span-2 font-display text-2xl font-light leading-tight sm:col-span-1 sm:col-start-2 sm:self-start md:text-4xl">Designing human-centered experiences to make lives easier.</h3>
           </div>
           <div className="mt-12 grid gap-12 lg:grid-cols-2">
             <div>
