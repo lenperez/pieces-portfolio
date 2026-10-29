@@ -290,9 +290,9 @@ function Index() {
             <h2 id="about-heading" className="-mb-[0.18em] min-w-0 self-end font-display text-5xl font-extralight leading-none md:text-8xl">About me...</h2>
             <h3 className="col-span-2 font-display text-2xl font-light leading-tight sm:col-span-1 sm:col-start-2 sm:self-start md:text-4xl">Designing human-centered experiences to make lives easier.</h3>
           </div>
-          <div className="mt-12 grid gap-12 lg:grid-cols-2">
+          <div className="mt-8 grid gap-12 lg:grid-cols-2">
             <div>
-              <p className="mt-8 text-lg leading-relaxed text-muted-foreground">I'm a UX designer with a process-first approach — every decision is grounded in research, validated through data, and refined through collaboration.</p>
+              <p className="text-lg leading-relaxed text-muted-foreground">I'm a UX designer with a process-first approach — every decision is grounded in research, validated through data, and refined through collaboration.</p>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">From redesigning enterprise eProcurement platforms to building style guides for medical community dashboards, I thrive where complexity meets clarity.</p>
             </div>
             <div className="grid gap-8 sm:grid-cols-2">
