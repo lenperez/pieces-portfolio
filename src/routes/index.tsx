@@ -135,7 +135,7 @@ function Index() {
   const [menu, setMenu] = useState(false);
   const [aboutPhoto, setAboutPhoto] = useState<string | null>(null);
   useEffect(() => {
-    setAboutPhoto(aboutPhotos[Math.floor(Math.random() * aboutPhotos.length)].url);
+    setAboutPhoto(aboutPhotos[Math.floor(Math.random() * aboutPhotos.length)]?.url ?? null);
   }, []);
   function navigateFromMobileMenu(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
     event.preventDefault();
