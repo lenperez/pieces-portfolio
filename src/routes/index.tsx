@@ -278,7 +278,7 @@ function Index() {
           <h2 id="about-heading" className="font-display text-6xl font-extralight md:text-8xl">About</h2>
           <div className="mt-12 grid gap-12 lg:grid-cols-2">
             <div>
-              <h3 className="font-display text-3xl font-light leading-tight md:text-4xl">Designing experiences that are purposeful &amp; human.</h3>
+              <h3 className="font-display text-3xl font-light leading-tight md:text-4xl">Designing human-centered experiences that solve problems.</h3>
               <p className="mt-8 text-lg leading-relaxed text-muted-foreground">I'm a UX designer with a process-first approach — every decision is grounded in research, validated through data, and refined through collaboration.</p>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">From redesigning enterprise eProcurement platforms to building style guides for medical community dashboards, I thrive where complexity meets clarity.</p>
             </div>
