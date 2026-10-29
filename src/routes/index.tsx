@@ -10,6 +10,10 @@ import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/ContactForm";
 import { useParallax } from "@/hooks/use-parallax";
 
+const aboutPhotos = Object.values(
+  import.meta.glob<{ url: string }>("@/assets/about/*.asset.json", { eager: true, import: "default" }),
+);
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -129,6 +133,10 @@ function Index() {
   const [zoom, setZoom] = useState<Step | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [aboutPhoto, setAboutPhoto] = useState<string | null>(null);
+  useEffect(() => {
+    setAboutPhoto(aboutPhotos[Math.floor(Math.random() * aboutPhotos.length)].url);
+  }, []);
   function navigateFromMobileMenu(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
     event.preventDefault();
     flushSync(() => setMenu(false));
@@ -275,7 +283,12 @@ function Index() {
 
       <section id="about" aria-labelledby="about-heading" className="flex min-h-[calc(100svh-var(--header-height,72px))] scroll-mt-[var(--header-height,72px)] items-center border-t border-border py-16">
         <div className="mx-auto w-full max-w-6xl px-6">
-          <h2 id="about-heading" className="font-display text-6xl font-extralight md:text-8xl">About</h2>
+          <div className="flex items-end justify-between gap-6">
+            <h2 id="about-heading" className="font-display text-6xl font-extralight md:text-8xl">About me...</h2>
+            <div className="h-32 w-24 shrink-0 overflow-hidden rounded-md bg-muted shadow-md md:h-48 md:w-36">
+              {aboutPhoto && <img src={aboutPhoto} alt="Len Perez as a kid, school photo" className="h-full w-full object-cover" />}
+            </div>
+          </div>
           <div className="mt-12 grid gap-12 lg:grid-cols-2">
             <div>
               <h3 className="font-display text-3xl font-light leading-tight md:text-4xl">Designing human-centered experiences to make lives easier.</h3>
