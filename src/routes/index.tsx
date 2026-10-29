@@ -287,7 +287,7 @@ function Index() {
             <div className="h-32 w-24 shrink-0 overflow-hidden rounded-md bg-muted shadow-md sm:row-span-2 md:h-48 md:w-36">
               {aboutPhoto && <img src={aboutPhoto} alt="Len Perez as a kid, school photo" className="h-full w-full object-cover" />}
             </div>
-            <h2 id="about-heading" className="min-w-0 font-display text-5xl font-extralight sm:self-end md:text-8xl">About me...</h2>
+            <h2 id="about-heading" className="-mb-[0.18em] min-w-0 self-end font-display text-5xl font-extralight leading-none md:text-8xl">About me...</h2>
             <h3 className="col-span-2 font-display text-2xl font-light leading-tight sm:col-span-1 sm:col-start-2 sm:self-start md:text-4xl">Designing human-centered experiences to make lives easier.</h3>
           </div>
           <div className="mt-12 grid gap-12 lg:grid-cols-2">
