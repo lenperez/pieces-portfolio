@@ -110,6 +110,7 @@ const uiProjects: Project[] = [
   },
 ];
 
+const comingSoon = ["CDK Global (Customer Details)", "CDK Global (Messaging)"];
 const groups = [
   { label: "Case Studies", items: projects.filter((p) => p.id !== "press-ganey") },
   { label: "UX/UI Design", items: [uiProjects[0], ...projects.filter((p) => p.id === "press-ganey"), ...uiProjects.slice(1)].filter((p): p is Project => p !== undefined && !p.hidden && p.steps.length > 0) },
@@ -177,6 +178,9 @@ function Index() {
                   {g.items.map((p) => (
                     <a key={p.id} href={`#${p.id}`} onClick={(e) => (e.currentTarget as HTMLElement).blur()} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                   ))}
+                  {g.label === "Case Studies" && comingSoon.map((name) => (
+                    <span key={name} aria-disabled="true" className="block cursor-not-allowed border-b border-border px-5 py-3 text-muted-foreground opacity-60">{name}</span>
+                  ))}
                 </div>
               </div>
             ))}
@@ -204,6 +208,9 @@ function Index() {
                 <div className="border-b border-border px-6 pb-2 pt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{g.label}</div>
                 {g.items.map((p) => (
                   <a key={p.id} href={`#${p.id}`} onClick={(event) => navigateFromMobileMenu(event, p.id)} className={`block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
+                ))}
+                {g.label === "Case Studies" && comingSoon.map((name) => (
+                  <span key={name} aria-disabled="true" className="block cursor-not-allowed border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-muted-foreground opacity-60">{name}</span>
                 ))}
               </div>
             ))}
