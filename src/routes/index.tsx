@@ -187,7 +187,7 @@ function Index() {
                     <a key={p.id} href={`#${p.id}`} onClick={(e) => (e.currentTarget as HTMLElement).blur()} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                   ))}
                   {g.label === "Case Studies" && comingSoon.map((name) => (
-                    <span key={name} aria-disabled="true" className="block cursor-not-allowed border-b border-border px-5 py-3 text-muted-foreground opacity-60">{name}</span>
+                    <span key={name} aria-disabled="true" className="block cursor-not-allowed border-b border-border px-5 py-3 text-muted-foreground opacity-60">{name.includes("(Customer Details)") ? <>{name.replace(" (Customer Details)", "")}<br />(Customer Details)</> : name}</span>
                   ))}
                 </div>
               </div>
