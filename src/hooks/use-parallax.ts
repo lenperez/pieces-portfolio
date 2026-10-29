@@ -36,7 +36,10 @@ export function useParallax() {
           const r = el.getBoundingClientRect();
           if (r.bottom < -100 || r.top > vh + 100) return;
           const fadeIn = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.35)));
-          el.style.opacity = String(fadeIn);
+          const bar = el.closest("section, article")?.parentElement?.querySelector<HTMLElement>(".sticky") ?? el.closest("section")?.querySelector<HTMLElement>(".sticky");
+          const barBottom = bar ? bar.getBoundingClientRect().bottom : (document.querySelector("header")?.getBoundingClientRect().height || 76);
+          const fadeOut = Math.min(1, Math.max(0, (r.bottom - barBottom) / Math.max(1, r.height)));
+          el.style.opacity = String(Math.min(fadeIn, fadeOut));
           return;
         }
         const parent = el.parentElement;
