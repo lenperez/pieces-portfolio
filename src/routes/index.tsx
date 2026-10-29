@@ -283,15 +283,17 @@ function Index() {
 
       <section id="about" aria-labelledby="about-heading" className="flex min-h-[calc(100svh-var(--header-height,72px))] scroll-mt-[var(--header-height,72px)] items-center border-t border-border py-16">
         <div className="mx-auto w-full max-w-6xl px-6">
-          <div className="flex items-end justify-between gap-6">
-            <h2 id="about-heading" className="font-display text-6xl font-extralight md:text-8xl">About me...</h2>
+          <div className="flex items-center gap-6 md:gap-10">
             <div className="h-32 w-24 shrink-0 overflow-hidden rounded-md bg-muted shadow-md md:h-48 md:w-36">
               {aboutPhoto && <img src={aboutPhoto} alt="Len Perez as a kid, school photo" className="h-full w-full object-cover" />}
+            </div>
+            <div className="min-w-0">
+              <h2 id="about-heading" className="font-display text-5xl font-extralight md:text-8xl">About me...</h2>
+              <h3 className="mt-4 font-display text-xl font-light leading-tight md:text-4xl">Designing human-centered experiences to make lives easier.</h3>
             </div>
           </div>
           <div className="mt-12 grid gap-12 lg:grid-cols-2">
             <div>
-              <h3 className="font-display text-3xl font-light leading-tight md:text-4xl">Designing human-centered experiences to make lives easier.</h3>
               <p className="mt-8 text-lg leading-relaxed text-muted-foreground">I'm a UX designer with a process-first approach — every decision is grounded in research, validated through data, and refined through collaboration.</p>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">From redesigning enterprise eProcurement platforms to building style guides for medical community dashboards, I thrive where complexity meets clarity.</p>
             </div>
