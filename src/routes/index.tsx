@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { createFileRoute } from "@tanstack/react-router";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { BarChart3, ChevronDown, Layers, Lightbulb, Maximize2, Menu, Users, X } from "lucide-react";
+import { BarChart3, ChevronDown, ExternalLink, Layers, Lightbulb, Maximize2, Menu, Users, X } from "lucide-react";
 import logo from "@/assets/favicon-light.svg.asset.json";
 import analyticsImage from "@/assets/work/pp-analytics-upload.png.asset.json";
 import resume from "@/assets/resume.pdf.asset.json";
@@ -194,8 +194,8 @@ function Index() {
             ))}
             <a href="#about" className="text-primary">About</a>
             <a href="#contact" className="text-primary">Contact</a>
-            <Button asChild variant="outline" size="sm" className="uppercase tracking-widest text-primary">
-              <a href={resume.url} target="_blank" rel="noopener noreferrer">Résumé</a>
+            <Button asChild variant="outline" size="sm" className="group uppercase tracking-widest text-primary">
+              <a href={resume.url} target="_blank" rel="noopener noreferrer">Résumé<ExternalLink aria-hidden="true" className="-ml-2 h-3.5 w-0 opacity-0 transition-all duration-200 group-hover:ml-0 group-hover:w-3.5 group-hover:opacity-100 group-focus-visible:ml-0 group-focus-visible:w-3.5 group-focus-visible:opacity-100" /></a>
             </Button>
             <ThemeToggle className="-my-2" />
           </div>
