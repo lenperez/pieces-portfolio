@@ -210,7 +210,7 @@ function Index() {
     <div id="top" className="min-h-screen bg-background text-foreground font-sans">
       <header ref={headerRef} className={`fade-rise sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" aria-label="Back to top" className="shrink-0"><span aria-hidden="true" className="block h-9 w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /></a>
+          <a href="#top" aria-label="Back to top" className="flex shrink-0 items-center gap-3"><span aria-hidden="true" className="block h-9 w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /><span className="text-sm font-semibold uppercase tracking-widest text-primary">Len Perez</span></a>
           <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
             {groups.map((g) => (
               <div key={g.label} data-dropdown={g.label} className="group relative">
