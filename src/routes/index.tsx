@@ -133,10 +133,45 @@ function Index() {
   const [zoom, setZoom] = useState<Step | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [aboutPhoto, setAboutPhoto] = useState<string | null>(null);
+  const zoomCloseRef = useRef<HTMLButtonElement>(null);
+  const zoomReturnFocusRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     setAboutPhoto(aboutPhotos[Math.floor(Math.random() * aboutPhotos.length)]?.url ?? null);
   }, []);
+  function openZoom(s: Step) {
+    zoomReturnFocusRef.current = document.activeElement as HTMLElement | null;
+    setZoom(s);
+  }
+  function closeZoom() {
+    setZoom(null);
+    zoomReturnFocusRef.current?.focus();
+  }
+  useEffect(() => {
+    if (!zoom) return;
+    zoomCloseRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeZoom();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoom]);
+  useEffect(() => {
+    if (!openDropdown) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!(e.target as HTMLElement).closest("[data-dropdown]")) setOpenDropdown(null);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpenDropdown(null);
+    };
+    window.addEventListener("pointerdown", onPointerDown);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [openDropdown]);
   function navigateFromMobileMenu(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
     event.preventDefault();
     flushSync(() => setMenu(false));
@@ -175,16 +210,22 @@ function Index() {
     <div id="top" className="min-h-screen bg-background text-foreground font-sans">
       <header ref={headerRef} className={`fade-rise sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" aria-label="Back to top" className="shrink-0"><span role="img" aria-label="Len Perez logo" className="block h-9 w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /></a>
+          <a href="#top" aria-label="Back to top" className="shrink-0"><span aria-hidden="true" className="block h-9 w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /></a>
           <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
             {groups.map((g) => (
-              <div key={g.label} className="group relative">
-                <button type="button" aria-haspopup="true" className={`flex items-center gap-1 py-2 uppercase tracking-widest transition-colors ${g.label === "UI Samples" ? "hover:text-ui-title group-focus-within:text-ui-title" : "hover:text-primary group-focus-within:text-primary"}`}>
-                  {g.label} <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+              <div key={g.label} data-dropdown={g.label} className="group relative">
+                <button
+                  type="button"
+                  aria-haspopup="true"
+                  aria-expanded={openDropdown === g.label}
+                  onClick={() => setOpenDropdown(openDropdown === g.label ? null : g.label)}
+                  className={`flex items-center gap-1 py-2 uppercase tracking-widest transition-colors ${g.label === "UI Samples" ? "hover:text-ui-title" : "hover:text-primary"} ${openDropdown === g.label ? (g.label === "UI Samples" ? "text-ui-title" : "text-primary") : ""}`}
+                >
+                  {g.label} <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform ${openDropdown === g.label ? "rotate-180" : ""}`} />
                 </button>
-                <div className={`invisible absolute top-full min-w-56 border-t-2 border-primary bg-background opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 ${g.label === "UX/UI Design" ? "left-0" : "right-0"}`}>
+                <div className={`absolute top-full min-w-56 border-t-2 border-primary bg-background shadow-lg transition-opacity ${openDropdown === g.label ? "visible opacity-100" : "invisible opacity-0"} ${g.label === "UX/UI Design" ? "left-0" : "right-0"}`}>
                   {g.items.map((p) => (
-                    <a key={p.id} href={`#${p.id}`} onClick={(e) => (e.currentTarget as HTMLElement).blur()} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
+                    <a key={p.id} href={`#${p.id}`} onClick={() => setOpenDropdown(null)} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                   ))}
                   {g.label === "Case Studies" && comingSoon.map((name) => (
                     <span key={name} aria-disabled="true" className="block cursor-not-allowed border-b border-border px-5 py-3 text-muted-foreground opacity-60">{name.includes("(Customer Details)") ? <>{name.replace(" (Customer Details)", "")}<br />(Customer Details)</> : name}</span>
@@ -204,8 +245,8 @@ function Index() {
             <a href={resume.url} target="_blank" rel="noopener noreferrer">Résumé</a>
           </Button>
           <ThemeToggle />
-          <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 p-2 text-primary sm:hidden">
-            {menu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 flex min-h-11 min-w-11 items-center justify-center p-2 text-primary sm:hidden">
+            {menu ? <X aria-hidden="true" className="h-6 w-6" /> : <Menu aria-hidden="true" className="h-6 w-6" />}
           </button>
           </div>
         </nav>
@@ -228,6 +269,7 @@ function Index() {
         )}
       </header>
 
+      <main>
       <section className="mx-auto flex min-h-[calc(100svh-var(--header-height,76px))] max-w-6xl flex-col justify-end px-6 pb-20">
         <h1 data-parallax="-1" data-parallax-hero="" data-parallax-fade="header" className="fade-in font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] will-change-transform md:text-[14rem]" onAnimationEnd={(e) => { e.currentTarget.classList.remove("fade-in"); window.dispatchEvent(new Event("scroll")); }}>PIECES</h1>
         <div data-parallax="-0.6" data-parallax-hero="" data-parallax-fade="0.3" className="will-change-transform">
@@ -257,7 +299,7 @@ function Index() {
                   <div className={`md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
                     <button
                       type="button"
-                      onClick={() => setZoom(s)}
+                      onClick={() => openZoom(s)}
                       className="group relative mx-auto block w-fit cursor-zoom-in"
                       aria-label={`Enlarge ${s.title}`}
                     >
@@ -312,18 +354,19 @@ function Index() {
           </div>
         </div>
       </section>
+      </main>
 
-      <section id="contact" className="flex min-h-[calc(100svh-4.25rem)] scroll-mt-16 items-center bg-primary py-16 text-primary-foreground">
+      <footer id="contact" className="flex min-h-[calc(100svh-4.25rem)] scroll-mt-16 items-center bg-primary py-16 text-primary-foreground">
         <div className="mx-auto w-full max-w-6xl px-6">
           <h2 className="font-display text-6xl font-extralight tracking-tight md:text-8xl">Contact</h2>
           <div className="mt-12 grid gap-12 md:grid-cols-12">
             <div className="space-y-8 md:col-span-4">
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Email</div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.18em]">Email</div>
                 <a href="mailto:me@lenperez.com" className="mt-2 block text-2xl font-light hover:underline">me@lenperez.com</a>
               </div>
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Phone</div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.18em]">Phone</div>
                 <a href="tel:7739916149" className="mt-2 block text-2xl font-light hover:underline">773.991.6149</a>
               </div>
             </div>
@@ -332,22 +375,24 @@ function Index() {
             </div>
           </div>
         </div>
-      </section>
+      </footer>
 
       {zoom && (
         <div
           role="dialog"
           aria-modal="true"
-          onClick={() => setZoom(null)}
+          aria-label={`Enlarged image: ${zoom.title}`}
+          onClick={closeZoom}
           className="fixed inset-0 z-50 flex items-center justify-center cursor-zoom-out overflow-hidden bg-scrim/80 px-4 pb-4 pt-16 backdrop-blur-sm"
         >
           <button
             type="button"
-            onClick={() => setZoom(null)}
-            aria-label="Close"
+            ref={zoomCloseRef}
+            onClick={closeZoom}
+            aria-label="Close enlarged image"
             className="fixed right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-background text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
           >
-            <X className="h-5 w-5" />
+            <X aria-hidden="true" className="h-5 w-5" />
           </button>
           <img src={zoom.image} alt={zoom.title} onClick={(e) => e.stopPropagation()} className="block h-auto w-auto max-h-[calc(100dvh-5rem)] max-w-full object-contain cursor-default" />
         </div>

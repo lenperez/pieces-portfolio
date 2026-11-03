@@ -30,8 +30,8 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
   }
 
   return (
-    <button type="button" onClick={toggle} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} className={`rounded-full p-2 text-primary transition-colors hover:bg-muted dark:text-foreground ${className}`}>
-      {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+    <button type="button" onClick={toggle} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} className={`flex min-h-11 min-w-11 items-center justify-center rounded-full p-2 text-primary transition-colors hover:bg-muted dark:text-foreground ${className}`}>
+      {dark ? <Sun aria-hidden="true" className="h-5 w-5" /> : <Moon aria-hidden="true" className="h-5 w-5" />}
     </button>
   );
 }
