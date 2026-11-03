@@ -210,16 +210,22 @@ function Index() {
     <div id="top" className="min-h-screen bg-background text-foreground font-sans">
       <header ref={headerRef} className={`fade-rise sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" aria-label="Back to top" className="shrink-0"><span role="img" aria-label="Len Perez logo" className="block h-9 w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /></a>
+          <a href="#top" aria-label="Back to top" className="shrink-0"><span aria-hidden="true" className="block h-9 w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /></a>
           <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
             {groups.map((g) => (
-              <div key={g.label} className="group relative">
-                <button type="button" aria-haspopup="true" className={`flex items-center gap-1 py-2 uppercase tracking-widest transition-colors ${g.label === "UI Samples" ? "hover:text-ui-title group-focus-within:text-ui-title" : "hover:text-primary group-focus-within:text-primary"}`}>
-                  {g.label} <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+              <div key={g.label} data-dropdown={g.label} className="group relative">
+                <button
+                  type="button"
+                  aria-haspopup="true"
+                  aria-expanded={openDropdown === g.label}
+                  onClick={() => setOpenDropdown(openDropdown === g.label ? null : g.label)}
+                  className={`flex items-center gap-1 py-2 uppercase tracking-widest transition-colors ${g.label === "UI Samples" ? "hover:text-ui-title" : "hover:text-primary"} ${openDropdown === g.label ? (g.label === "UI Samples" ? "text-ui-title" : "text-primary") : ""}`}
+                >
+                  {g.label} <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform ${openDropdown === g.label ? "rotate-180" : ""}`} />
                 </button>
-                <div className={`invisible absolute top-full min-w-56 border-t-2 border-primary bg-background opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 ${g.label === "UX/UI Design" ? "left-0" : "right-0"}`}>
+                <div className={`absolute top-full min-w-56 border-t-2 border-primary bg-background shadow-lg transition-opacity ${openDropdown === g.label ? "visible opacity-100" : "invisible opacity-0"} ${g.label === "UX/UI Design" ? "left-0" : "right-0"}`}>
                   {g.items.map((p) => (
-                    <a key={p.id} href={`#${p.id}`} onClick={(e) => (e.currentTarget as HTMLElement).blur()} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
+                    <a key={p.id} href={`#${p.id}`} onClick={() => setOpenDropdown(null)} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                   ))}
                   {g.label === "Case Studies" && comingSoon.map((name) => (
                     <span key={name} aria-disabled="true" className="block cursor-not-allowed border-b border-border px-5 py-3 text-muted-foreground opacity-60">{name.includes("(Customer Details)") ? <>{name.replace(" (Customer Details)", "")}<br />(Customer Details)</> : name}</span>
