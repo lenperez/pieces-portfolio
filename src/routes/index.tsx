@@ -361,11 +361,11 @@ function Index() {
           <div className="mt-12 grid gap-12 md:grid-cols-12">
             <div className="space-y-8 md:col-span-4">
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Email</div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.18em]">Email</div>
                 <a href="mailto:me@lenperez.com" className="mt-2 block text-2xl font-light hover:underline">me@lenperez.com</a>
               </div>
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">Phone</div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.18em]">Phone</div>
                 <a href="tel:7739916149" className="mt-2 block text-2xl font-light hover:underline">773.991.6149</a>
               </div>
             </div>
@@ -374,22 +374,24 @@ function Index() {
             </div>
           </div>
         </div>
-      </section>
+      </footer>
 
       {zoom && (
         <div
           role="dialog"
           aria-modal="true"
-          onClick={() => setZoom(null)}
+          aria-label={`Enlarged image: ${zoom.title}`}
+          onClick={closeZoom}
           className="fixed inset-0 z-50 flex items-center justify-center cursor-zoom-out overflow-hidden bg-scrim/80 px-4 pb-4 pt-16 backdrop-blur-sm"
         >
           <button
             type="button"
-            onClick={() => setZoom(null)}
-            aria-label="Close"
+            ref={zoomCloseRef}
+            onClick={closeZoom}
+            aria-label="Close enlarged image"
             className="fixed right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-background text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
           >
-            <X className="h-5 w-5" />
+            <X aria-hidden="true" className="h-5 w-5" />
           </button>
           <img src={zoom.image} alt={zoom.title} onClick={(e) => e.stopPropagation()} className="block h-auto w-auto max-h-[calc(100dvh-5rem)] max-w-full object-contain cursor-default" />
         </div>
