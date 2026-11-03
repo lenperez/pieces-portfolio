@@ -12,10 +12,13 @@ export function useParallax() {
       const factor = window.innerWidth < 768 ? 0.5 : 1;
       const headerH = document.querySelector("header")?.getBoundingClientRect().height || 76;
       document.querySelectorAll<HTMLElement>("[data-snap-title]").forEach((bar) => {
-        const gap = bar.getBoundingClientRect().top - headerH;
+        const applied = Number(bar.dataset["snapOffset"] || 0);
+        const gap = bar.getBoundingClientRect().top - headerH - applied;
         if (gap > 1 && gap < 90) {
+          bar.dataset["snapOffset"] = String(-gap);
           bar.style.transform = `translate3d(0, ${-gap}px, 0)`;
-        } else if (bar.style.transform) {
+        } else if (applied) {
+          delete bar.dataset["snapOffset"];
           bar.style.transform = "";
         }
       });
