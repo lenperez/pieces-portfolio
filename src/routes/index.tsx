@@ -354,8 +354,9 @@ function Index() {
           </div>
         </div>
       </section>
+      </main>
 
-      <section id="contact" className="flex min-h-[calc(100svh-4.25rem)] scroll-mt-16 items-center bg-primary py-16 text-primary-foreground">
+      <footer id="contact" className="flex min-h-[calc(100svh-4.25rem)] scroll-mt-16 items-center bg-primary py-16 text-primary-foreground">
         <div className="mx-auto w-full max-w-6xl px-6">
           <h2 className="font-display text-6xl font-extralight tracking-tight md:text-8xl">Contact</h2>
           <div className="mt-12 grid gap-12 md:grid-cols-12">
