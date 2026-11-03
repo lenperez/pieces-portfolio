@@ -133,10 +133,45 @@ function Index() {
   const [zoom, setZoom] = useState<Step | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [aboutPhoto, setAboutPhoto] = useState<string | null>(null);
+  const zoomCloseRef = useRef<HTMLButtonElement>(null);
+  const zoomReturnFocusRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     setAboutPhoto(aboutPhotos[Math.floor(Math.random() * aboutPhotos.length)]?.url ?? null);
   }, []);
+  function openZoom(s: Step) {
+    zoomReturnFocusRef.current = document.activeElement as HTMLElement | null;
+    setZoom(s);
+  }
+  function closeZoom() {
+    setZoom(null);
+    zoomReturnFocusRef.current?.focus();
+  }
+  useEffect(() => {
+    if (!zoom) return;
+    zoomCloseRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeZoom();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoom]);
+  useEffect(() => {
+    if (!openDropdown) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!(e.target as HTMLElement).closest("[data-dropdown]")) setOpenDropdown(null);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpenDropdown(null);
+    };
+    window.addEventListener("pointerdown", onPointerDown);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [openDropdown]);
   function navigateFromMobileMenu(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
     event.preventDefault();
     flushSync(() => setMenu(false));
