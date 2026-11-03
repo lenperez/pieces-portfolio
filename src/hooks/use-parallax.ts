@@ -10,6 +10,15 @@ export function useParallax() {
       frame = 0;
       const vh = window.innerHeight;
       const factor = window.innerWidth < 768 ? 0.5 : 1;
+      const headerH = document.querySelector("header")?.getBoundingClientRect().height || 76;
+      document.querySelectorAll<HTMLElement>("[data-snap-title]").forEach((bar) => {
+        const gap = bar.getBoundingClientRect().top - headerH;
+        if (gap > 1 && gap < 90) {
+          bar.style.transform = `translate3d(0, ${-gap}px, 0)`;
+        } else if (bar.style.transform) {
+          bar.style.transform = "";
+        }
+      });
       document.querySelectorAll<HTMLElement>("[data-parallax], [data-fade-scroll]").forEach((el) => {
         const speed = Number(el.dataset["parallax"]) * factor;
         if (el.dataset["parallaxHero"] !== undefined) {
