@@ -244,7 +244,7 @@ function Index() {
 
       {allProjects.map((p) => (
         <section key={p.id} id={p.id} className="scroll-mt-[var(--header-height,72px)]">
-          <div data-snap-title className={`sticky top-[var(--header-height,72px)] z-20 ${p.group === "UI" ? "bg-ui-title text-ui-title-foreground" : "bg-primary text-primary-foreground"}`}>
+          <div className={`sticky top-[var(--header-height,72px)] z-20 ${p.group === "UI" ? "bg-ui-title text-ui-title-foreground" : "bg-primary text-primary-foreground"}`}>
             <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-3">
               <h2 className="font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
               <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{p.banner ?? `${p.number} — ${p.group} · ${p.client}`}</span>
