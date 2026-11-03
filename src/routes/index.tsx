@@ -245,8 +245,8 @@ function Index() {
             <a href={resume.url} target="_blank" rel="noopener noreferrer">Résumé</a>
           </Button>
           <ThemeToggle />
-          <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 p-2 text-primary sm:hidden">
-            {menu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 flex min-h-11 min-w-11 items-center justify-center p-2 text-primary sm:hidden">
+            {menu ? <X aria-hidden="true" className="h-6 w-6" /> : <Menu aria-hidden="true" className="h-6 w-6" />}
           </button>
           </div>
         </nav>
@@ -269,6 +269,7 @@ function Index() {
         )}
       </header>
 
+      <main>
       <section className="mx-auto flex min-h-[calc(100svh-var(--header-height,76px))] max-w-6xl flex-col justify-end px-6 pb-20">
         <h1 data-parallax="-1" data-parallax-hero="" data-parallax-fade="header" className="fade-in font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] will-change-transform md:text-[14rem]" onAnimationEnd={(e) => { e.currentTarget.classList.remove("fade-in"); window.dispatchEvent(new Event("scroll")); }}>PIECES</h1>
         <div data-parallax="-0.6" data-parallax-hero="" data-parallax-fade="0.3" className="will-change-transform">
@@ -298,7 +299,7 @@ function Index() {
                   <div className={`md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
                     <button
                       type="button"
-                      onClick={() => setZoom(s)}
+                      onClick={() => openZoom(s)}
                       className="group relative mx-auto block w-fit cursor-zoom-in"
                       aria-label={`Enlarge ${s.title}`}
                     >
