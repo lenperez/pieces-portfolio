@@ -6,6 +6,8 @@ import { BarChart3, ChevronDown, ExternalLink, Layers, Lightbulb, Maximize2, Men
 import logo from "@/assets/favicon-light.svg.asset.json";
 import analyticsImage from "@/assets/work/pp-analytics-upload.png.asset.json";
 import resume from "@/assets/resume.pdf.asset.json";
+import graingerCatalog from "@/assets/work/gr-catalog.jpg.asset.json";
+import graingerSubsidy from "@/assets/work/gr-subsidy.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/ContactForm";
 import { useParallax } from "@/hooks/use-parallax";
@@ -34,7 +36,7 @@ export const Route = createFileRoute("/")({
 const imgs = import.meta.glob("@/assets/work/*.png", { eager: true, import: "default" }) as Record<string, string>;
 const img = (n: string) => Object.entries(imgs).find(([k]) => k.endsWith(`/${n}.png`))![1];
 
-type Step = { kind: string; title: string; text: string; image: string };
+type Step = { kind: string; title: string; text: string; image: string; images?: { src: string; title: string }[] };
 type Project = { id: string; name: string; client: string; steps: Step[]; banner?: string; hidden?: boolean };
 
 const projects: Project[] = [
@@ -68,7 +70,7 @@ const projects: Project[] = [
       { kind: "Process", title: "Extrapolation & Simplification", image: img("gr-extrapolation-clean"), text: "Whiteboarding to restructure components so they were interchangeable, while simplifying how information is entered and retrieved." },
       { kind: "Design", title: "Basic Wireframes", image: img("gr-basic"), text: "Wireframes were created and iterated so simple interactions could be tested and vetted with the team and stakeholders, covering every scenario." },
       { kind: "Design", title: "Advanced Wireframes", image: img("gr-advanced"), text: "Once basic structure and functionality were agreed upon, more detailed wireframes were created with annotations and variants." },
-      { kind: "Design", title: "High-Fidelity Comps", image: img("gr-hifi"), text: "Hi-fi comps gave real-world views of visual hierarchy, making sure all information was presented as clearly as possible." },
+      { kind: "Design", title: "High-Fidelity Comps", image: graingerCatalog.url, images: [{ src: graingerCatalog.url, title: "Catalog" }, { src: img("gr-roster-restored"), title: "Employee Roster" }, { src: graingerSubsidy.url, title: "Subsidy Plans" }], text: "Hi-fi comps gave real-world views of visual hierarchy, making sure all information was presented as clearly as possible." },
     ],
   },
   {
@@ -296,20 +298,24 @@ function Index() {
             <div className="pt-8 space-y-12">
               {p.steps.map((s, i) => (
                 <article key={s.title} data-fade-scroll="" className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
-                  <div className={`md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
-                    <button
+                  <div className={`space-y-6 md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
+                    {(s.images ?? [{ src: s.image, title: s.title }]).map((image) => (
+                    <Button
+                      key={image.src}
                       type="button"
-                      onClick={() => openZoom(s)}
-                      className="group relative mx-auto block w-fit cursor-zoom-in"
-                      aria-label={`Enlarge ${s.title}`}
+                      variant="ghost"
+                      onClick={() => openZoom({ ...s, image: image.src, title: image.title })}
+                      className="group relative mx-auto block h-auto w-fit cursor-zoom-in overflow-hidden rounded-none p-0 hover:bg-transparent"
+                      aria-label={`Enlarge ${image.title}`}
                     >
-                      <img src={s.image} alt={`${p.name} — ${s.title}`} loading={p.id === "purchasing" && i === 0 ? "eager" : "lazy"} fetchPriority={p.id === "purchasing" && i === 0 ? "high" : "auto"} className="max-h-60 w-auto object-contain" />
+                      <img src={image.src} alt={`${p.name} — ${image.title}`} loading={p.id === "purchasing" && i === 0 ? "eager" : "lazy"} fetchPriority={p.id === "purchasing" && i === 0 ? "high" : "auto"} className="max-h-60 w-auto object-contain" />
                       <span className="absolute inset-0 flex items-center justify-center bg-primary/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                         <span className="flex items-center gap-2 border border-primary-foreground px-4 py-2 text-xs font-semibold uppercase tracking-widest text-primary-foreground">
                           <Maximize2 className="h-4 w-4" /> Enlarge
                         </span>
                       </span>
-                    </button>
+                    </Button>
+                    ))}
                   </div>
                   <div className="order-first border-t border-border pt-5 md:order-none md:col-span-8">
                     <div className="label">{String(i + 1).padStart(2, "0")} · {s.kind}</div>
