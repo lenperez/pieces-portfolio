@@ -32,5 +32,5 @@
 - [x] Verify the section and its header link on desktop and phone.
 
 ## Grainger step 6
-- [x] Separate the three screenshots and restore the obscured employee sidebar.
-- [x] Verify all three images and their enlarged views on desktop and phone.
+- [x] Keep all three complete pages in one image without overlap, restoring the obscured employee sidebar.
+- [x] Verify the combined thumbnail and enlarged image on desktop and phone.
