@@ -33,4 +33,4 @@
 
 ## Grainger step 6
 - [x] Separate the three screenshots and restore the obscured employee sidebar.
-- [ ] Verify all three images and their enlarged views on desktop and phone.
+- [x] Verify all three images and their enlarged views on desktop and phone.
