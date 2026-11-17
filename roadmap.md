@@ -30,3 +30,7 @@
 ## About section
 - [x] Add the uploaded image's About content after Medtronic and before Contact.
 - [x] Verify the section and its header link on desktop and phone.
+
+## Grainger step 6
+- [x] Separate the three screenshots and restore the obscured employee sidebar.
+- [x] Verify all three images and their enlarged views on desktop and phone.
