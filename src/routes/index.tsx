@@ -6,8 +6,7 @@ import { BarChart3, ChevronDown, ExternalLink, Layers, Lightbulb, Maximize2, Men
 import logo from "@/assets/favicon-light.svg.asset.json";
 import analyticsImage from "@/assets/work/pp-analytics-upload.png.asset.json";
 import resume from "@/assets/resume.pdf.asset.json";
-import graingerCatalog from "@/assets/work/gr-catalog.jpg.asset.json";
-import graingerSubsidy from "@/assets/work/gr-subsidy.jpg.asset.json";
+import graingerComplete from "@/assets/work/gr-hifi-complete.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/ContactForm";
 import { useParallax } from "@/hooks/use-parallax";
@@ -70,7 +69,7 @@ const projects: Project[] = [
       { kind: "Process", title: "Extrapolation & Simplification", image: img("gr-extrapolation-clean"), text: "Whiteboarding to restructure components so they were interchangeable, while simplifying how information is entered and retrieved." },
       { kind: "Design", title: "Basic Wireframes", image: img("gr-basic"), text: "Wireframes were created and iterated so simple interactions could be tested and vetted with the team and stakeholders, covering every scenario." },
       { kind: "Design", title: "Advanced Wireframes", image: img("gr-advanced"), text: "Once basic structure and functionality were agreed upon, more detailed wireframes were created with annotations and variants." },
-      { kind: "Design", title: "High-Fidelity Comps", image: graingerCatalog.url, images: [{ src: graingerCatalog.url, title: "Catalog" }, { src: img("gr-roster-restored"), title: "Employee Roster" }, { src: graingerSubsidy.url, title: "Subsidy Plans" }], text: "Hi-fi comps gave real-world views of visual hierarchy, making sure all information was presented as clearly as possible." },
+      { kind: "Design", title: "High-Fidelity Comps", image: graingerComplete.url, text: "Hi-fi comps gave real-world views of visual hierarchy, making sure all information was presented as clearly as possible." },
     ],
   },
   {
