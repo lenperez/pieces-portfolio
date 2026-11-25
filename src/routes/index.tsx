@@ -136,6 +136,24 @@ function Index() {
   const [menu, setMenu] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [aboutPhoto, setAboutPhoto] = useState<string | null>(null);
+  const hoverTimer = useRef<number | null>(null);
+  function openDropdownNow(label: string) {
+    if (hoverTimer.current !== null) {
+      window.clearTimeout(hoverTimer.current);
+      hoverTimer.current = null;
+    }
+    setOpenDropdown(label);
+  }
+  function closeDropdownSoon() {
+    if (hoverTimer.current !== null) window.clearTimeout(hoverTimer.current);
+    hoverTimer.current = window.setTimeout(() => setOpenDropdown(null), 150);
+  }
+  useEffect(
+    () => () => {
+      if (hoverTimer.current !== null) window.clearTimeout(hoverTimer.current);
+    },
+    [],
+  );
   const zoomCloseRef = useRef<HTMLButtonElement>(null);
   const zoomReturnFocusRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
@@ -222,7 +240,17 @@ function Index() {
           <a href="#top" aria-label="Back to top" className="flex shrink-0 items-center gap-3"><span aria-hidden="true" className="block h-9 w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /><span className="text-sm font-semibold uppercase tracking-widest text-primary">Len Perez</span></a>
           <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
             {groups.map((g) => (
-              <div key={g.label} data-dropdown={g.label} className="group relative">
+              <div
+                key={g.label}
+                data-dropdown={g.label}
+                className="group relative"
+                onMouseEnter={() => openDropdownNow(g.label)}
+                onMouseLeave={closeDropdownSoon}
+                onFocus={() => openDropdownNow(g.label)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node | null)) closeDropdownSoon();
+                }}
+              >
                 <button
                   type="button"
                   aria-haspopup="true"

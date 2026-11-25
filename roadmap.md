@@ -37,3 +37,7 @@
 ## Fixed-height image slots
 - [x] Give every project picture slot a fixed 240px height so the page stops shifting while pictures load.
 - [x] Verify zero layout shift on desktop and phone, and that pictures and the enlarged view still work.
+
+## Header menus open on hover
+- [x] Case Studies and UX/UI Design open when the pointer moves over them, and close when it leaves.
+- [x] Keep click, keyboard focus and Escape working; verified on desktop, tablet and phone.
