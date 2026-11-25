@@ -34,3 +34,6 @@
 ## Grainger step 6
 - [x] Keep all three complete pages in one image without overlap, restoring the obscured employee sidebar.
 - [x] Verify the combined thumbnail and enlarged image on desktop and phone.
+## Fixed-height image slots
+- [x] Give every project picture slot a fixed 240px height so the page stops shifting while pictures load.
+- [x] Verify zero layout shift on desktop and phone, and that pictures and the enlarged view still work.

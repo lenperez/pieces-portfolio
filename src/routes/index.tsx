@@ -312,10 +312,10 @@ function Index() {
                       type="button"
                       variant="ghost"
                       onClick={() => openZoom({ ...s, image: image.src, title: image.title })}
-                      className="group relative mx-auto block h-auto w-fit cursor-zoom-in overflow-hidden rounded-none p-0 hover:bg-transparent"
+                      className="group relative mx-auto flex h-60 w-fit max-w-full cursor-zoom-in items-center justify-center overflow-hidden rounded-none p-0 hover:bg-transparent"
                       aria-label={`Enlarge ${image.title}`}
                     >
-                      <img src={image.src} alt={`${p.name} — ${image.title}`} loading={p.id === "purchasing" && i === 0 ? "eager" : "lazy"} fetchPriority={p.id === "purchasing" && i === 0 ? "high" : "auto"} className="max-h-60 w-auto object-contain" />
+                      <img src={image.src} alt={`${p.name} — ${image.title}`} loading={p.id === "purchasing" && i === 0 ? "eager" : "lazy"} fetchPriority={p.id === "purchasing" && i === 0 ? "high" : "auto"} className="h-full w-auto max-w-full object-contain" />
                       <span className="absolute inset-0 flex items-center justify-center bg-primary/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                         <span className="flex items-center gap-2 border border-primary-foreground px-4 py-2 text-xs font-semibold uppercase tracking-widest text-primary-foreground">
                           <Maximize2 className="h-4 w-4" /> Enlarge
