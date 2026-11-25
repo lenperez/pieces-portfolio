@@ -154,10 +154,17 @@ function Index() {
     zoomCloseRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeZoom();
+      if (e.key === "Tab") { e.preventDefault(); zoomCloseRef.current?.focus(); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [zoom]);
+  useEffect(() => {
+    if (!menu) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenu(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menu]);
   useEffect(() => {
     if (!openDropdown) return;
     const onPointerDown = (e: PointerEvent) => {
@@ -209,6 +216,7 @@ function Index() {
   }, []);
   return (
     <div id="top" className="min-h-screen bg-background text-foreground font-sans">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-primary focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-primary-foreground">Skip to main content</a>
       <header ref={headerRef} className={`fade-rise sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <a href="#top" aria-label="Back to top" className="flex shrink-0 items-center gap-3"><span aria-hidden="true" className="block h-9 w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /><span className="text-sm font-semibold uppercase tracking-widest text-primary">Len Perez</span></a>
@@ -220,13 +228,13 @@ function Index() {
                   aria-haspopup="true"
                   aria-expanded={openDropdown === g.label}
                   onClick={() => setOpenDropdown(openDropdown === g.label ? null : g.label)}
-                  className={`flex items-center gap-1 py-2 uppercase tracking-widest transition-colors ${g.label === "UI Samples" ? "hover:text-ui-title" : "hover:text-primary"} ${openDropdown === g.label ? (g.label === "UI Samples" ? "text-ui-title" : "text-primary") : ""}`}
+                  className={`flex items-center gap-1 py-2 uppercase tracking-widest transition-colors ${g.label === "UX/UI Design" ? "hover:text-ui-title" : "hover:text-primary"} ${openDropdown === g.label ? (g.label === "UX/UI Design" ? "text-ui-title" : "text-primary") : ""}`}
                 >
                   {g.label} <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform ${openDropdown === g.label ? "rotate-180" : ""}`} />
                 </button>
                 <div className={`absolute top-full min-w-56 border-t-2 border-primary bg-background shadow-lg transition-opacity ${openDropdown === g.label ? "visible opacity-100" : "invisible opacity-0"} ${g.label === "UX/UI Design" ? "left-0" : "right-0"}`}>
                   {g.items.map((p) => (
-                    <a key={p.id} href={`#${p.id}`} onClick={() => setOpenDropdown(null)} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
+                    <a key={p.id} href={`#${p.id}`} onClick={() => setOpenDropdown(null)} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UX/UI Design" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                   ))}
                   {g.label === "Case Studies" && comingSoon.map((name) => (
                     <span key={name} aria-disabled="true" className="block cursor-not-allowed border-b border-border px-5 py-3 text-muted-foreground opacity-60">{name.includes("(Customer Details)") ? <>{name.replace(" (Customer Details)", "")}<br />(Customer Details)</> : name}</span>
@@ -257,7 +265,7 @@ function Index() {
               <div key={g.label}>
                 <div className="border-b border-border px-6 pb-2 pt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{g.label}</div>
                 {g.items.map((p) => (
-                  <a key={p.id} href={`#${p.id}`} onClick={(event) => navigateFromMobileMenu(event, p.id)} className={`block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground ${g.label === "UI Samples" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
+                  <a key={p.id} href={`#${p.id}`} onClick={(event) => navigateFromMobileMenu(event, p.id)} className={`block border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-foreground ${g.label === "UX/UI Design" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                 ))}
                 {g.label === "Case Studies" && comingSoon.map((name) => (
                   <span key={name} aria-disabled="true" className="block cursor-not-allowed border-b border-border px-6 py-4 text-sm font-semibold uppercase tracking-widest text-muted-foreground opacity-60">{name}</span>
@@ -270,7 +278,7 @@ function Index() {
         )}
       </header>
 
-      <main>
+      <main id="main" tabIndex={-1} className="focus:outline-none">
       <section className="mx-auto flex min-h-[calc(100svh-var(--header-height,76px))] max-w-6xl flex-col justify-end px-6 pb-20">
         <h1 data-parallax="-1" data-parallax-hero="" data-parallax-fade="header" className="fade-in font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] will-change-transform md:text-[14rem]" onAnimationEnd={(e) => { e.currentTarget.classList.remove("fade-in"); window.dispatchEvent(new Event("scroll")); }}>PIECES</h1>
         <div data-parallax="-0.6" data-parallax-hero="" data-parallax-fade="0.3" className="will-change-transform">
