@@ -52,7 +52,9 @@ export function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} onChange={(event) => {
-      const fieldName = (event.target as HTMLInputElement | HTMLTextAreaElement).name;
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return;
+      const fieldName = target.name;
       if (fieldName === "name" || fieldName === "email" || fieldName === "message") {
         setErrors((previous) => { const next = { ...previous }; delete next[fieldName]; return next; });
       }
