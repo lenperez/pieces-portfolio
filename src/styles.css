@@ -36,6 +36,8 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-text: var(--primary-text);
+  --color-ui-title-text: var(--ui-title-text);
   --color-scrim: var(--scrim);
   --color-ui-title: var(--ui-title);
   --color-ui-title-foreground: var(--ui-title-foreground);
@@ -75,6 +77,8 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.22 0.03 255);
   --primary: oklch(0.36 0.09 250);
+  --primary-text: oklch(0.36 0.09 250);
+  --ui-title-text: oklch(0.44 0.09 250);
   --primary-foreground: oklch(0.99 0 0);
   --scrim: oklch(0.15 0.03 255);
   --ui-title: oklch(0.44 0.09 250);
@@ -113,9 +117,11 @@
   --popover: oklch(0.22 0.035 255);
   --popover-foreground: oklch(0.95 0.008 250);
   --primary: oklch(0.5 0.12 252);
+  --primary-text: oklch(0.76 0.09 250);
+  --ui-title-text: oklch(0.76 0.09 245);
   --primary-foreground: oklch(0.99 0 0);
   --scrim: oklch(0.06 0.02 255);
-  --ui-title: oklch(0.62 0.1 245);
+  --ui-title: oklch(0.53 0.1 245);
   --ui-title-foreground: oklch(0.99 0 0);
   --secondary: oklch(0.26 0.035 255);
   --secondary-foreground: oklch(0.95 0.008 250);
@@ -159,7 +165,7 @@
     @apply inline-block bg-primary px-3 py-1 font-display text-xl font-light uppercase tracking-tight text-primary-foreground md:text-2xl;
   }
   .label {
-    @apply font-display text-[11px] font-bold uppercase tracking-[0.18em] text-primary;
+    @apply font-display text-[11px] font-bold uppercase tracking-[0.18em] text-primary-text;
   }
 }
 
@@ -209,8 +215,14 @@
   input:focus-visible,
   textarea:focus-visible,
   [tabindex]:not([tabindex="-1"]):focus-visible {
-    outline: 3px solid var(--ring);
+    outline: 3px solid var(--foreground);
     outline-offset: 2px;
+  }
+  footer :focus-visible {
+    outline-color: var(--primary-foreground);
+  }
+  [data-fade-scroll]:focus-within {
+    opacity: 1 !important;
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }

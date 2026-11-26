@@ -16,3 +16,7 @@
 - Portfolio display order is separate from navigation categories; preserve retained project numbers after removals and allow explicit banner overrides so requested identities are not renumbered.
 - About is an in-page section between the portfolio and Contact; render reference-image content as accessible text so it adapts to small screens and themes.
 - Steps may contain individually titled images; each image opens independently in the existing enlarged view to preserve inspection and keyboard access.
+
+- Enlarged images use Radix Dialog for focus containment, background isolation, Escape and focus restoration; never hand-roll modal focus management.
+- Navigation uses disclosure buttons with controlled link panels and moves focus to destination headings after same-page navigation.
+- Separate blue text tokens from filled blue surface tokens so each meets contrast requirements in both themes.

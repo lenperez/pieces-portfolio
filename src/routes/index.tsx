@@ -8,6 +8,7 @@ import analyticsImage from "@/assets/work/pp-analytics-upload.png.asset.json";
 import resume from "@/assets/resume.pdf.asset.json";
 import graingerComplete from "@/assets/work/gr-hifi-complete.png.asset.json";
 import { Button } from "@/components/ui/button";
+import { EnlargedImage } from "@/components/EnlargedImage";
 import { ContactForm } from "@/components/ContactForm";
 import { useParallax } from "@/hooks/use-parallax";
 
@@ -33,7 +34,11 @@ export const Route = createFileRoute("/")({
 });
 
 const imgs = import.meta.glob("@/assets/work/*.png", { eager: true, import: "default" }) as Record<string, string>;
-const img = (n: string) => Object.entries(imgs).find(([k]) => k.endsWith(`/${n}.png`))![1];
+const img = (n: string) => {
+  const match = Object.entries(imgs).find(([k]) => k.endsWith(`/${n}.png`));
+  if (!match) throw new Error(`Missing portfolio image: ${n}`);
+  return match[1];
+};
 
 type Step = { kind: string; title: string; text: string; image: string; images?: { src: string; title: string }[] };
 type Project = { id: string; name: string; client: string; steps: Step[]; banner?: string; hidden?: boolean };
@@ -154,7 +159,7 @@ function Index() {
     },
     [],
   );
-  const zoomCloseRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLButtonElement>(null);
   const zoomReturnFocusRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     setAboutPhoto(aboutPhotos[Math.floor(Math.random() * aboutPhotos.length)]?.url ?? null);
@@ -163,23 +168,9 @@ function Index() {
     zoomReturnFocusRef.current = document.activeElement as HTMLElement | null;
     setZoom(s);
   }
-  function closeZoom() {
-    setZoom(null);
-    zoomReturnFocusRef.current?.focus();
-  }
-  useEffect(() => {
-    if (!zoom) return;
-    zoomCloseRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeZoom();
-      if (e.key === "Tab") { e.preventDefault(); zoomCloseRef.current?.focus(); }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [zoom]);
   useEffect(() => {
     if (!menu) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenu(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setMenu(false); mobileMenuRef.current?.focus(); } };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [menu]);
@@ -189,7 +180,11 @@ function Index() {
       if (!(e.target as HTMLElement).closest("[data-dropdown]")) setOpenDropdown(null);
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpenDropdown(null);
+      if (e.key === "Escape") {
+        const trigger = document.querySelector<HTMLButtonElement>(`[data-dropdown="${openDropdown}"] > button`);
+        trigger?.focus();
+        setOpenDropdown(null);
+      }
     };
     window.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("keydown", onKey);
@@ -200,7 +195,7 @@ function Index() {
   }, [openDropdown]);
   function navigateFromMobileMenu(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
     event.preventDefault();
-    flushSync(() => setMenu(false));
+    flushSync(() => { setMenu(false); setOpenDropdown(null); });
     const header = headerRef.current;
     const project = document.getElementById(id);
     if (!header || !project) return;
@@ -212,6 +207,8 @@ function Index() {
           top: window.scrollY + project.getBoundingClientRect().top - header.getBoundingClientRect().height,
           behavior: "instant",
         });
+        const heading = project.querySelector<HTMLElement>("h2");
+        heading?.focus({ preventScroll: true });
       });
     });
   }
@@ -236,8 +233,8 @@ function Index() {
     <div id="top" className="min-h-screen bg-background text-foreground font-sans">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-primary focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-primary-foreground">Skip to main content</a>
       <header ref={headerRef} className={`fade-rise sticky top-0 z-30 border-t-4 border-primary bg-background/90 backdrop-blur transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" aria-label="Back to top" className="flex shrink-0 items-center gap-3"><span aria-hidden="true" className="block h-9 w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /><span className="text-sm font-semibold uppercase tracking-widest text-primary">Len Perez</span></a>
+        <nav aria-label="Main navigation" className="mx-auto flex max-w-6xl items-center justify-between px-3 py-4 min-[375px]:px-6">
+          <a href="#top" aria-label="Len Perez — back to top" className="flex shrink-0 items-center gap-2 min-[375px]:gap-3"><span aria-hidden="true" className="block h-8 w-8 min-[375px]:h-9 min-[375px]:w-9 bg-primary mask-size-contain mask-center mask-no-repeat" style={{ maskImage: `url(${logo.url})` }} /><span className="text-xs min-[375px]:text-sm font-semibold uppercase tracking-widest text-primary-text">Len Perez</span></a>
           <div className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:flex">
             {groups.map((g) => (
               <div
@@ -251,18 +248,18 @@ function Index() {
                   if (!e.currentTarget.contains(e.relatedTarget as Node | null)) closeDropdownSoon();
                 }}
               >
-                <button
+                <Button variant="ghost"
                   type="button"
-                  aria-haspopup="true"
+                  aria-controls={`navigation-${g.label === "Case Studies" ? "case-studies" : "design"}`}
                   aria-expanded={openDropdown === g.label}
                   onClick={() => setOpenDropdown(openDropdown === g.label ? null : g.label)}
-                  className={`flex items-center gap-1 py-2 uppercase tracking-widest transition-colors ${g.label === "UX/UI Design" ? "hover:text-ui-title" : "hover:text-primary"} ${openDropdown === g.label ? (g.label === "UX/UI Design" ? "text-ui-title" : "text-primary") : ""}`}
+                  className={`min-h-11 h-auto px-0 text-xs font-semibold hover:bg-transparent flex items-center gap-1 py-2 uppercase tracking-widest transition-colors ${g.label === "UX/UI Design" ? "hover:text-ui-title-text" : "hover:text-primary-text"} ${openDropdown === g.label ? (g.label === "UX/UI Design" ? "text-ui-title-text" : "text-primary-text") : ""}`}
                 >
                   {g.label} <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform ${openDropdown === g.label ? "rotate-180" : ""}`} />
-                </button>
-                <div className={`absolute top-full min-w-56 border-t-2 border-primary bg-background shadow-lg transition-opacity ${openDropdown === g.label ? "visible opacity-100" : "invisible opacity-0"} ${g.label === "UX/UI Design" ? "left-0" : "right-0"}`}>
+                </Button>
+                <div id={`navigation-${g.label === "Case Studies" ? "case-studies" : "design"}`} className={`absolute top-full min-w-56 border-t-2 border-primary bg-background shadow-lg transition-opacity ${openDropdown === g.label ? "visible opacity-100" : "invisible opacity-0"} ${g.label === "UX/UI Design" ? "left-0" : "right-0"}`}>
                   {g.items.map((p) => (
-                    <a key={p.id} href={`#${p.id}`} onClick={() => setOpenDropdown(null)} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UX/UI Design" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
+                    <a key={p.id} href={`#${p.id}`} onClick={(event) => navigateFromMobileMenu(event, p.id)} className={`block border-b border-border px-5 py-3 text-foreground transition-colors ${g.label === "UX/UI Design" ? "hover:bg-ui-title hover:text-ui-title-foreground" : "hover:bg-primary hover:text-primary-foreground"}`}>{p.name}</a>
                   ))}
                   {g.label === "Case Studies" && comingSoon.map((name) => (
                     <span key={name} aria-disabled="true" className="block cursor-not-allowed border-b border-border px-5 py-3 text-muted-foreground opacity-60">{name.includes("(Customer Details)") ? <>{name.replace(" (Customer Details)", "")}<br />(Customer Details)</> : name}</span>
@@ -270,25 +267,25 @@ function Index() {
                 </div>
               </div>
             ))}
-            <a href="#about" className="text-primary">About</a>
-            <a href="#contact" className="text-primary">Contact</a>
-            <Button asChild variant="outline" size="sm" className="group uppercase tracking-widest text-primary">
-              <a href={resume.url} target="_blank" rel="noopener noreferrer">Résumé<ExternalLink aria-hidden="true" className="-ml-2 !h-3.5 !w-0 opacity-0 transition-all duration-200 group-hover:ml-0 group-hover:!w-3.5 group-hover:opacity-100 group-focus-visible:ml-0 group-focus-visible:!w-3.5 group-focus-visible:opacity-100" /></a>
+            <a href="#about" onClick={(event) => navigateFromMobileMenu(event, "about")} className="flex min-h-11 items-center text-primary-text">About</a>
+            <a href="#contact" onClick={(event) => navigateFromMobileMenu(event, "contact")} className="flex min-h-11 items-center text-primary-text">Contact</a>
+            <Button asChild variant="outline" size="sm" className="group min-h-11 uppercase tracking-widest text-primary-text">
+              <a href={resume.url} target="_blank" rel="noopener noreferrer" aria-label="Résumé (opens in a new window)">Résumé<ExternalLink aria-hidden="true" className="-ml-2 !h-3.5 !w-0 opacity-0 transition-all duration-200 group-hover:ml-0 group-hover:!w-3.5 group-hover:opacity-100 group-focus-visible:ml-0 group-focus-visible:!w-3.5 group-focus-visible:opacity-100" /></a>
             </Button>
             <ThemeToggle className="-my-2" />
           </div>
           <div className="flex items-center gap-1 sm:hidden">
-          <Button asChild variant="outline" size="sm" className="mr-2 text-primary">
-            <a href={resume.url} target="_blank" rel="noopener noreferrer">Résumé</a>
+          <Button asChild variant="outline" size="sm" className="mr-2 min-h-11 text-primary-text">
+            <a href={resume.url} target="_blank" rel="noopener noreferrer" aria-label="Résumé (opens in a new window)">Résumé</a>
           </Button>
           <ThemeToggle />
-          <button type="button" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 flex min-h-11 min-w-11 items-center justify-center p-2 text-primary sm:hidden">
+          <Button variant="ghost" ref={mobileMenuRef} type="button" aria-controls="mobile-navigation" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} className="-mr-2 flex min-h-11 min-w-11 items-center justify-center p-2 text-primary-text sm:hidden">
             {menu ? <X aria-hidden="true" className="h-6 w-6" /> : <Menu aria-hidden="true" className="h-6 w-6" />}
-          </button>
+          </Button>
           </div>
         </nav>
         {menu && (
-          <div className="max-h-[80svh] overflow-auto border-t border-border bg-background shadow-lg sm:hidden">
+          <div id="mobile-navigation" className="max-h-[80svh] overflow-auto border-t border-border bg-background shadow-lg sm:hidden">
             {groups.map((g) => (
               <div key={g.label}>
                 <div className="border-b border-border px-6 pb-2 pt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{g.label}</div>
@@ -300,8 +297,8 @@ function Index() {
                 ))}
               </div>
             ))}
-            <a href="#about" onClick={(event) => navigateFromMobileMenu(event, "about")} className="block px-6 py-4 text-sm font-semibold uppercase tracking-widest text-primary hover:bg-primary hover:text-primary-foreground">About</a>
-            <a href="#contact" onClick={() => setMenu(false)} className="block px-6 py-4 text-sm font-semibold uppercase tracking-widest text-primary hover:bg-primary hover:text-primary-foreground">Contact</a>
+            <a href="#about" onClick={(event) => navigateFromMobileMenu(event, "about")} className="block px-6 py-4 text-xs min-[375px]:text-sm font-semibold uppercase tracking-widest text-primary-text hover:bg-primary hover:text-primary-foreground">About</a>
+            <a href="#contact" onClick={(event) => navigateFromMobileMenu(event, "contact")} className="block px-6 py-4 text-xs min-[375px]:text-sm font-semibold uppercase tracking-widest text-primary-text hover:bg-primary hover:text-primary-foreground">Contact</a>
           </div>
         )}
       </header>
@@ -311,7 +308,7 @@ function Index() {
         <h1 data-parallax="-1" data-parallax-hero="" data-parallax-fade="header" className="fade-in font-display text-[22vw] font-extralight leading-[0.8] tracking-[-0.06em] will-change-transform md:text-[14rem]" onAnimationEnd={(e) => { e.currentTarget.classList.remove("fade-in"); window.dispatchEvent(new Event("scroll")); }}>PIECES</h1>
         <div data-parallax="-0.6" data-parallax-hero="" data-parallax-fade="0.3" className="will-change-transform">
           <p className="fade-rise mt-6 pl-2 text-xs uppercase tracking-[0.3em] text-muted-foreground sm:pl-5">
-            A collection of work from <span className="block font-bold text-primary sm:inline">Len Perez</span>
+            A collection of work from <span className="block font-bold text-primary-text sm:inline">Len Perez</span>
           </p>
         </div>
         <div data-parallax="-0.25" data-parallax-hero="" data-parallax-fade="0.5" className="will-change-transform">
@@ -325,7 +322,7 @@ function Index() {
         <section key={p.id} id={p.id} className="scroll-mt-[var(--header-height,72px)]">
           <div className={`sticky top-[var(--header-height,72px)] z-20 ${p.group === "UI" ? "bg-ui-title text-ui-title-foreground" : "bg-primary text-primary-foreground"}`}>
             <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-3">
-              <h2 className="font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
+              <h2 tabIndex={-1} className="scroll-mt-[calc(var(--header-height,72px)+16px)] font-display text-xl font-light uppercase tracking-tight md:text-2xl">{p.name}</h2>
               <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]">{p.banner ?? `${p.number} — ${p.group} · ${p.client}`}</span>
             </div>
           </div>
@@ -346,7 +343,7 @@ function Index() {
                       <img src={image.src} alt={`${p.name} — ${image.title}`} loading={p.id === "purchasing" && i === 0 ? "eager" : "lazy"} fetchPriority={p.id === "purchasing" && i === 0 ? "high" : "auto"} className="h-full w-auto max-w-full object-contain" />
                       <span className="absolute inset-0 flex items-center justify-center bg-primary/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                         <span className="flex items-center gap-2 border border-primary-foreground px-4 py-2 text-xs font-semibold uppercase tracking-widest text-primary-foreground">
-                          <Maximize2 className="h-4 w-4" /> Enlarge
+                          <Maximize2 aria-hidden="true" className="h-4 w-4" /> Enlarge
                         </span>
                       </span>
                     </Button>
@@ -370,7 +367,7 @@ function Index() {
             <div className="h-32 w-24 shrink-0 overflow-hidden rounded-md bg-muted shadow-md sm:row-span-2 md:h-48 md:w-36">
               {aboutPhoto && <img src={aboutPhoto} alt="Len Perez as a kid, school photo" className="h-full w-full object-cover" />}
             </div>
-            <h2 id="about-heading" className="-mb-[0.18em] min-w-0 self-end font-display text-5xl font-extralight leading-none md:text-8xl">About me...</h2>
+            <h2 tabIndex={-1} id="about-heading" className="-mb-[0.18em] min-w-0 self-end font-display text-5xl font-extralight leading-none md:text-8xl">About me...</h2>
             <h3 className="col-span-2 font-display text-2xl font-light leading-tight sm:col-span-1 sm:col-start-2 sm:self-start md:text-4xl">Designing human-centered experiences to make lives easier.</h3>
           </div>
           <div className="mt-8 grid gap-12 lg:grid-cols-2">
@@ -386,7 +383,7 @@ function Index() {
                 { title: "Analytics", text: "Data-driven decisions, bounce rate analysis, screen sizing", icon: BarChart3 },
               ].map(({ title, text, icon: Icon }) => (
                 <div key={title} className="border-t border-border pt-5">
-                  <Icon aria-hidden="true" className="h-7 w-7 text-primary" />
+                  <Icon aria-hidden="true" className="h-7 w-7 text-primary-text" />
                   <h3 className="mt-4 font-display text-xl font-semibold">{title}</h3>
                   <p className="mt-3 leading-relaxed text-muted-foreground">{text}</p>
                 </div>
@@ -397,9 +394,9 @@ function Index() {
       </section>
       </main>
 
-      <footer id="contact" className="flex min-h-[calc(100svh-4.25rem)] scroll-mt-16 items-center bg-primary py-16 text-primary-foreground">
+      <footer id="contact" className="flex min-h-[calc(100svh-4.25rem)] scroll-mt-[var(--header-height,72px)] items-center bg-primary py-16 text-primary-foreground">
         <div className="mx-auto w-full max-w-6xl px-6">
-          <h2 className="font-display text-6xl font-extralight tracking-tight md:text-8xl">Contact</h2>
+          <h2 tabIndex={-1} className="font-display text-6xl font-extralight tracking-tight md:text-8xl">Contact</h2>
           <div className="mt-12 grid gap-12 md:grid-cols-12">
             <div className="space-y-8 md:col-span-4">
               <div>
@@ -418,26 +415,7 @@ function Index() {
         </div>
       </footer>
 
-      {zoom && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Enlarged image: ${zoom.title}`}
-          onClick={closeZoom}
-          className="fixed inset-0 z-50 flex items-center justify-center cursor-zoom-out overflow-hidden bg-scrim/80 px-4 pb-4 pt-16 backdrop-blur-sm"
-        >
-          <button
-            type="button"
-            ref={zoomCloseRef}
-            onClick={closeZoom}
-            aria-label="Close enlarged image"
-            className="fixed right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-background text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
-          >
-            <X aria-hidden="true" className="h-5 w-5" />
-          </button>
-          <img src={zoom.image} alt={zoom.title} onClick={(e) => e.stopPropagation()} className="block h-auto w-auto max-h-[calc(100dvh-5rem)] max-w-full object-contain cursor-default" />
-        </div>
-      )}
+      <EnlargedImage image={zoom} onClose={() => setZoom(null)} returnFocus={zoomReturnFocusRef} />
     </div>
   );
 }
